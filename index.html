@@ -1,0 +1,1741 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Europe Trip 2026 · Tiffany & Kyle</title>
+
+<!-- ── PWA / HOME SCREEN META ── -->
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Europe 2026">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="theme-color" content="#1a3a5c">
+
+<!-- ── HOME SCREEN ICON (inline SVG → data URI) ── -->
+<link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 180 180'%3E%3Crect width='180' height='180' rx='38' fill='%231a3a5c'/%3E%3C!-- tile border --%3E%3Crect x='8' y='8' width='164' height='164' rx='30' fill='none' stroke='%23c9973a' stroke-width='3' stroke-dasharray='8,4'/%3E%3C!-- plane --%3E%3Cg transform='translate(90,52) rotate(-35)'%3E%3Cellipse cx='0' cy='0' rx='28' ry='9' fill='%23f5efe6'/%3E%3Cellipse cx='-6' cy='0' rx='10' ry='16' fill='%23f5efe6'/%3E%3Cpolygon points='-28,0 -22,6 -14,0 -22,-6' fill='%23c9973a'/%3E%3Cpolygon points='2,-9 2,-20 10,-9' fill='%23f5efe6'/%3E%3C/g%3E%3C!-- Portugal rooster simplified --%3E%3Cellipse cx='62' cy='118' rx='14' ry='11' fill='%23c0522d'/%3E%3Cellipse cx='72' cy='108' rx='7' ry='8' fill='%23c0522d'/%3E%3Cpolygon points='78,107 86,109 78,111' fill='%23c9973a'/%3E%3Ccircle cx='75' cy='106' r='2' fill='%231a1a1a'/%3E%3Cpath d='M48,115 Q42,104 46,96 Q50,106 55,112Z' fill='%231a3a5c'/%3E%3Cpath d='M48,118 Q40,112 42,102 Q48,110 52,116Z' fill='%23c9973a'/%3E%3C!-- Colosseum arch --%3E%3Cellipse cx='124' cy='128' rx='30' ry='18' fill='%23ddd0b0'/%3E%3Cellipse cx='124' cy='128' rx='24' ry='13' fill='%231a3a5c'/%3E%3Cellipse cx='124' cy='128' rx='18' ry='9' fill='%23ddd0b0' opacity='.4'/%3E%3C!-- text --%3E%3Ctext x='90' y='162' text-anchor='middle' font-family='Georgia,serif' font-size='13' font-weight='bold' fill='%23c9973a'%3EEurope 2026%3C/text%3E%3C/svg%3E">
+
+<!-- ── SPLASH SCREENS for common iPhone sizes ── -->
+<!-- iPhone 14 Pro / 15 -->
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --tile-blue: #1a3a5c;
+    --tile-gold: #c9973a;
+    --tile-cream: #f5efe6;
+    --tile-terracotta: #c0522d;
+    --tile-sage: #5a7a5e;
+    --tile-sky: #d4e9f7;
+    --white: #fdfaf6;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  /* ── SPLASH SCREEN ── */
+  #splash {
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    background: var(--tile-blue);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    transition: opacity 0.6s ease, transform 0.6s ease;
+  }
+  #splash.hidden {
+    opacity: 0;
+    transform: scale(1.04);
+    pointer-events: none;
+  }
+  .splash-icon {
+    width: 100px;
+    height: 100px;
+    border-radius: 24px;
+    background: rgba(255,255,255,0.06);
+    border: 2px solid rgba(201,151,58,0.4);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 52px;
+    animation: splashPulse 1.6s ease-in-out infinite;
+  }
+  @keyframes splashPulse {
+    0%, 100% { box-shadow: 0 0 0 0 rgba(201,151,58,0.3); }
+    50% { box-shadow: 0 0 0 18px rgba(201,151,58,0); }
+  }
+  .splash-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 32px;
+    font-weight: 700;
+    color: var(--white);
+    text-align: center;
+  }
+  .splash-title em { font-style: italic; color: var(--tile-gold); }
+  .splash-sub {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 16px;
+    color: rgba(245,239,230,0.55);
+    letter-spacing: 1px;
+    text-align: center;
+  }
+  .splash-cities { display: flex; gap: 8px; margin-top: 4px; }
+  .splash-city {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--tile-gold);
+    padding: 4px 12px;
+    border: 1px solid rgba(201,151,58,0.3);
+    border-radius: 100px;
+  }
+  .splash-loader {
+    width: 48px;
+    height: 2px;
+    background: rgba(255,255,255,0.1);
+    border-radius: 2px;
+    margin-top: 8px;
+    overflow: hidden;
+  }
+  .splash-loader-bar {
+    height: 100%;
+    background: var(--tile-gold);
+    border-radius: 2px;
+    animation: loadBar 1.4s ease forwards;
+  }
+  @keyframes loadBar {
+    from { width: 0%; }
+    to   { width: 100%; }
+  }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--tile-blue);
+    min-height: 100vh;
+    color: #2a1f14;
+    overflow-x: hidden;
+  }
+
+  /* ── SVG BACKGROUND ── */
+  .bg-layer {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    z-index: 0;
+    overflow: hidden;
+  }
+
+  .bg-svg {
+    width: 100%; height: 100%;
+    opacity: 0.18;
+  }
+
+  /* ── PAGE HEADER ── */
+  .page-header {
+    position: relative;
+    z-index: 10;
+    text-align: center;
+    padding: calc(56px + env(safe-area-inset-top)) 24px 40px;
+    background: linear-gradient(180deg, rgba(26,58,92,0.98) 0%, rgba(26,58,92,0.92) 70%, transparent 100%);
+  }
+
+  .trip-eyebrow {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: var(--tile-gold);
+    margin-bottom: 10px;
+  }
+
+  .trip-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(40px, 7vw, 72px);
+    font-weight: 700;
+    color: var(--white);
+    line-height: 1.1;
+    margin-bottom: 6px;
+  }
+
+  .trip-title em {
+    font-style: italic;
+    color: var(--tile-gold);
+  }
+
+  .trip-subtitle {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 20px;
+    color: rgba(245,239,230,0.7);
+    margin-bottom: 24px;
+  }
+
+  .city-pills {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+
+  .city-pill {
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(201,151,58,0.4);
+    color: var(--tile-gold);
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    padding: 6px 18px;
+    border-radius: 100px;
+    backdrop-filter: blur(4px);
+  }
+
+  /* ── VENUE LINKS ── */
+  .venue-links {
+    display: flex;
+    gap: 7px;
+    flex-wrap: wrap;
+    margin-top: 7px;
+  }
+  .venue-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 11px;
+    font-weight: 500;
+    padding: 4px 10px;
+    border-radius: 100px;
+    text-decoration: none;
+    letter-spacing: 0.3px;
+    transition: opacity 0.15s;
+  }
+  .venue-link:active { opacity: 0.7; }
+  .venue-link.maps  { background: #dce8f7; color: #1a3a5c; }
+  .venue-link.menu  { background: #fff0d4; color: #8b5a00; }
+  .venue-link.book  { background: #d4edda; color: #276033; }
+
+  /* ── MAIN LAYOUT ── */
+  .main {
+    position: relative;
+    z-index: 10;
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 0 20px 80px;
+  }
+
+  /* ── SECTION HEADERS ── */
+  .section-header {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin: 48px 0 20px;
+  }
+
+  .section-flag {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 22px;
+    flex-shrink: 0;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.3);
+  }
+
+  .section-flag.lisbon { background: linear-gradient(135deg, #1a3a5c, #2d6ba0); }
+  .section-flag.porto  { background: linear-gradient(135deg, #7b2c2c, #c0522d); }
+  .section-flag.rome   { background: linear-gradient(135deg, #5a3e2b, #8b6344); }
+
+  .section-title-wrap h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 28px;
+    color: var(--white);
+    font-weight: 700;
+  }
+
+  .section-title-wrap span {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 12px;
+    font-weight: 400;
+    color: rgba(245,239,230,0.55);
+    letter-spacing: 1px;
+  }
+
+  /* ── DAY CARDS ── */
+  .day-card {
+    background: rgba(253,250,246,0.97);
+    border-radius: 16px;
+    margin-bottom: 14px;
+    overflow: hidden;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.25), 0 1px 0 rgba(255,255,255,0.1);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+
+  .day-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 16px 48px rgba(0,0,0,0.3);
+  }
+
+  .day-header {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 16px 20px;
+    cursor: pointer;
+    user-select: none;
+    border-bottom: 1px solid transparent;
+    transition: border-color 0.2s;
+  }
+
+  .day-card.open .day-header {
+    border-bottom-color: rgba(0,0,0,0.07);
+  }
+
+  .day-date-badge {
+    min-width: 52px;
+    text-align: center;
+    flex-shrink: 0;
+  }
+
+  .day-date-badge .month {
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--tile-terracotta);
+  }
+
+  .day-date-badge .num {
+    font-family: 'Playfair Display', serif;
+    font-size: 30px;
+    font-weight: 700;
+    line-height: 1;
+    color: var(--tile-blue);
+  }
+
+  .day-title-wrap {
+    flex: 1;
+  }
+
+  .day-title-wrap h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 17px;
+    font-weight: 700;
+    color: var(--tile-blue);
+    line-height: 1.2;
+  }
+
+  .day-title-wrap .day-sub {
+    font-size: 12px;
+    color: #888;
+    margin-top: 2px;
+  }
+
+  .day-badges {
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+  }
+
+  .badge {
+    font-size: 10px;
+    font-weight: 500;
+    padding: 3px 9px;
+    border-radius: 100px;
+    letter-spacing: 0.5px;
+  }
+
+  .badge.confirmed { background: #d4edda; color: #276033; }
+  .badge.birthday  { background: #fff0d4; color: #8b5a00; }
+  .badge.travel    { background: #dce8f7; color: #1a3a5c; }
+  .badge.flexport  { background: #ede8f7; color: #4a2d7a; }
+
+  .chevron {
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    background: #f0ebe3;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    transition: transform 0.25s ease, background 0.2s;
+    font-size: 11px;
+    color: #888;
+  }
+
+  .day-card.open .chevron {
+    transform: rotate(180deg);
+    background: var(--tile-blue);
+    color: white;
+  }
+
+  /* ── DAY BODY ── */
+  .day-body {
+    display: none;
+    padding: 0 20px 20px;
+  }
+
+  .day-card.open .day-body { display: block; }
+
+  /* ── TIMELINE ── */
+  .timeline {
+    margin-top: 16px;
+    position: relative;
+    padding-left: 28px;
+  }
+
+  .timeline::before {
+    content: '';
+    position: absolute;
+    left: 10px;
+    top: 8px;
+    bottom: 8px;
+    width: 1.5px;
+    background: linear-gradient(180deg, var(--tile-gold) 0%, rgba(201,151,58,0.15) 100%);
+  }
+
+  .tl-item {
+    position: relative;
+    margin-bottom: 18px;
+  }
+
+  .tl-item:last-child { margin-bottom: 0; }
+
+  .tl-dot {
+    position: absolute;
+    left: -23px;
+    top: 5px;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: var(--tile-cream);
+    border: 2px solid var(--tile-gold);
+    z-index: 1;
+  }
+
+  .tl-item.highlight .tl-dot {
+    background: var(--tile-gold);
+    width: 12px;
+    height: 12px;
+    left: -24px;
+    box-shadow: 0 0 0 3px rgba(201,151,58,0.2);
+  }
+
+  .tl-time {
+    font-size: 11px;
+    font-weight: 500;
+    color: var(--tile-terracotta);
+    letter-spacing: 0.5px;
+    margin-bottom: 2px;
+  }
+
+  .tl-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 15px;
+    font-weight: 700;
+    color: #1e1410;
+    line-height: 1.3;
+  }
+
+  .tl-name .conf {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 10px;
+    font-weight: 500;
+    background: #e8f4ec;
+    color: #276033;
+    padding: 2px 7px;
+    border-radius: 100px;
+    margin-left: 6px;
+    vertical-align: middle;
+  }
+
+  .tl-detail {
+    font-size: 13px;
+    color: #666;
+    line-height: 1.5;
+    margin-top: 3px;
+  }
+
+  .tl-tip {
+    margin-top: 5px;
+    background: #fef9ec;
+    border-left: 2px solid var(--tile-gold);
+    padding: 5px 10px;
+    font-size: 12px;
+    color: #7a5c0a;
+    border-radius: 0 6px 6px 0;
+    font-style: italic;
+  }
+
+  /* ── BOOKING REMINDER BOX ── */
+  .booking-box {
+    margin-top: 40px;
+    background: rgba(253,250,246,0.97);
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.25);
+  }
+
+  .booking-box-header {
+    background: var(--tile-blue);
+    padding: 16px 22px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .booking-box-header h3 {
+    font-family: 'Playfair Display', serif;
+    color: var(--white);
+    font-size: 18px;
+  }
+
+  .booking-list {
+    padding: 16px 22px;
+    display: grid;
+    gap: 10px;
+  }
+
+  .booking-item {
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+  }
+
+  .booking-status {
+    font-size: 16px;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+
+  .booking-text strong {
+    font-size: 13px;
+    font-weight: 600;
+    color: #1e1410;
+    display: block;
+  }
+
+  .booking-text span {
+    font-size: 12px;
+    color: #777;
+  }
+
+  .booking-text .conf-num {
+    font-size: 11px;
+    background: #e8f4ec;
+    color: #276033;
+    padding: 1px 7px;
+    border-radius: 100px;
+    margin-left: 4px;
+  }
+
+  .booking-text .asap {
+    font-size: 11px;
+    background: #fff0d4;
+    color: #8b5a00;
+    padding: 1px 7px;
+    border-radius: 100px;
+    margin-left: 4px;
+    font-weight: 600;
+  }
+
+  /* ── BAGGAGE BOX ── */
+  .baggage-box {
+    margin-top: 24px;
+    background: rgba(253,250,246,0.97);
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.25);
+  }
+
+  .baggage-box-header {
+    background: var(--tile-terracotta);
+    padding: 16px 22px;
+  }
+
+  .baggage-box-header h3 {
+    font-family: 'Playfair Display', serif;
+    color: white;
+    font-size: 18px;
+  }
+
+  .baggage-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 0;
+  }
+
+  .baggage-col {
+    padding: 16px 22px;
+    border-right: 1px solid #ede8de;
+  }
+
+  .baggage-col:last-child { border-right: none; }
+
+  .baggage-col h4 {
+    font-family: 'Playfair Display', serif;
+    font-size: 14px;
+    color: var(--tile-blue);
+    margin-bottom: 8px;
+    padding-bottom: 6px;
+    border-bottom: 1px solid #ede8de;
+  }
+
+  .baggage-col .row {
+    display: flex;
+    justify-content: space-between;
+    font-size: 12px;
+    margin-bottom: 5px;
+    gap: 8px;
+  }
+
+  .baggage-col .row .label { color: #888; }
+  .baggage-col .row .val { font-weight: 500; color: #2a1f14; text-align: right; }
+  .baggage-col .row .val.warn { color: var(--tile-terracotta); }
+  .baggage-col .row .val.ok { color: #276033; }
+
+  /* ── FOOTER ── */
+  .footer {
+    text-align: center;
+    padding: 40px 20px calc(40px + env(safe-area-inset-bottom));
+    position: relative;
+    z-index: 10;
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 18px;
+    color: rgba(245,239,230,0.5);
+  }
+
+  @media (max-width: 500px) {
+    .day-badges { display: none; }
+    .baggage-grid { grid-template-columns: 1fr; }
+    .baggage-col { border-right: none; border-bottom: 1px solid #ede8de; }
+    .baggage-col:last-child { border-bottom: none; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ── SPLASH SCREEN ── -->
+<div id="splash">
+  <div class="splash-icon">✈️</div>
+  <div class="splash-title">Europe <em>2026</em></div>
+  <div class="splash-sub">Tiffany & Kyle · May 31 – June 13</div>
+  <div class="splash-cities">
+    <span class="splash-city">🇵🇹 Lisbon</span>
+    <span class="splash-city">Porto</span>
+    <span class="splash-city">🇮🇹 Rome</span>
+  </div>
+  <div class="splash-loader"><div class="splash-loader-bar"></div></div>
+</div>
+
+<!-- ── PORTUGAL/EUROPE ILLUSTRATED BACKGROUND ── -->
+<div class="bg-layer">
+  <svg class="bg-svg" viewBox="0 0 1400 900" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
+    <!-- SKY -->
+    <rect width="1400" height="900" fill="#a8cfe8"/>
+    <rect width="1400" height="500" fill="url(#skyGrad)"/>
+    <defs>
+      <linearGradient id="skyGrad" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0%" stop-color="#4a8ab5"/>
+        <stop offset="100%" stop-color="#c9e4f0"/>
+      </linearGradient>
+      <linearGradient id="groundGrad" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0%" stop-color="#e8d5b0"/>
+        <stop offset="100%" stop-color="#c4a97a"/>
+      </linearGradient>
+      <linearGradient id="waterGrad" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0%" stop-color="#2b6cb0"/>
+        <stop offset="100%" stop-color="#1a3a5c"/>
+      </linearGradient>
+    </defs>
+
+    <!-- GROUND BASE -->
+    <rect y="620" width="1400" height="280" fill="url(#groundGrad)"/>
+
+    <!-- WATER / TAGUS -->
+    <ellipse cx="250" cy="760" rx="320" ry="60" fill="url(#waterGrad)" opacity="0.6"/>
+    <path d="M0 740 Q80 720 160 740 Q240 760 320 740 Q400 720 480 740 L480 800 L0 800Z" fill="#2b6cb0" opacity="0.4"/>
+
+    <!-- === BELÉM TOWER (left) === -->
+    <g transform="translate(60,420)">
+      <!-- base platform -->
+      <rect x="10" y="170" width="100" height="12" fill="#d4c49a" rx="2"/>
+      <!-- main tower body -->
+      <rect x="22" y="80" width="76" height="94" fill="#e8d8b8"/>
+      <!-- tower battlements -->
+      <rect x="18" y="68" width="86" height="16" fill="#ddd0b0"/>
+      <rect x="22" y="58" width="8" height="14" fill="#ddd0b0"/>
+      <rect x="36" y="58" width="8" height="14" fill="#ddd0b0"/>
+      <rect x="50" y="58" width="8" height="14" fill="#ddd0b0"/>
+      <rect x="64" y="58" width="8" height="14" fill="#ddd0b0"/>
+      <rect x="78" y="58" width="8" height="14" fill="#ddd0b0"/>
+      <!-- turrets -->
+      <rect x="14" y="90" width="14" height="60" fill="#d4c49a"/>
+      <rect x="92" y="90" width="14" height="60" fill="#d4c49a"/>
+      <!-- conical turret tops -->
+      <polygon points="14,90 28,90 21,72" fill="#c9973a"/>
+      <polygon points="92,90 106,90 99,72" fill="#c9973a"/>
+      <!-- main tower top -->
+      <polygon points="22,68 98,68 60,42" fill="#c9973a"/>
+      <!-- cross on top -->
+      <rect x="58" y="38" width="4" height="20" fill="#c9973a"/>
+      <rect x="54" y="46" width="12" height="4" fill="#c9973a"/>
+      <!-- windows/arches -->
+      <ellipse cx="60" cy="112" rx="8" ry="11" fill="#4a7ab5" opacity="0.6"/>
+      <ellipse cx="60" cy="140" rx="6" ry="8" fill="#4a7ab5" opacity="0.5"/>
+      <ellipse cx="40" cy="128" rx="5" ry="7" fill="#4a7ab5" opacity="0.4"/>
+      <ellipse cx="80" cy="128" rx="5" ry="7" fill="#4a7ab5" opacity="0.4"/>
+      <!-- ornate cross on facade -->
+      <path d="M56,104 L64,104 M60,100 L60,108" stroke="#c9973a" stroke-width="2"/>
+    </g>
+
+    <!-- === JERÓNIMOS MONASTERY (spreading along ground) === -->
+    <g transform="translate(170,510)">
+      <!-- main long body -->
+      <rect x="0" y="80" width="260" height="90" fill="#e8d8b8"/>
+      <!-- row of gothic windows -->
+      <g fill="none" stroke="#c9973a" stroke-width="1.5">
+        <path d="M15,90 L15,150 Q25,140 35,150 L35,90"/>
+        <path d="M45,90 L45,150 Q55,140 65,150 L65,90"/>
+        <path d="M75,90 L75,150 Q85,140 95,150 L95,90"/>
+        <path d="M105,90 L105,150 Q115,140 125,150 L125,90"/>
+        <path d="M135,90 L135,150 Q145,140 155,150 L155,90"/>
+        <path d="M165,90 L165,150 Q175,140 185,150 L185,90"/>
+        <path d="M195,90 L195,150 Q205,140 215,150 L215,90"/>
+        <path d="M225,90 L225,150 Q235,140 245,150 L245,90"/>
+      </g>
+      <!-- roofline battlements -->
+      <rect x="0" y="74" width="260" height="10" fill="#ddd0b0"/>
+      <g fill="#ddd0b0">
+        <rect x="5" y="62" width="10" height="14"/>
+        <rect x="25" y="62" width="10" height="14"/>
+        <rect x="45" y="62" width="10" height="14"/>
+        <rect x="65" y="62" width="10" height="14"/>
+        <rect x="85" y="62" width="10" height="14"/>
+        <rect x="105" y="62" width="10" height="14"/>
+        <rect x="125" y="62" width="10" height="14"/>
+        <rect x="145" y="62" width="10" height="14"/>
+        <rect x="165" y="62" width="10" height="14"/>
+        <rect x="185" y="62" width="10" height="14"/>
+        <rect x="205" y="62" width="10" height="14"/>
+        <rect x="225" y="62" width="10" height="14"/>
+        <rect x="245" y="62" width="10" height="14"/>
+      </g>
+      <!-- central tower -->
+      <rect x="105" y="20" width="50" height="56" fill="#ddd0b0"/>
+      <polygon points="105,20 155,20 130,0" fill="#c9973a"/>
+      <rect x="126" y="-4" width="8" height="14" fill="#8b4513"/>
+      <rect x="122" y="2" width="16" height="4" fill="#8b4513"/>
+      <!-- dome -->
+      <ellipse cx="130" cy="22" rx="22" ry="8" fill="#c9973a" opacity="0.8"/>
+    </g>
+
+    <!-- === AZULEJO TILE PATTERN (decorative panel) === -->
+    <g transform="translate(450,550)" opacity="0.9">
+      <rect width="200" height="160" fill="#1a3a5c" rx="4"/>
+      <!-- tile grid -->
+      <g fill="none" stroke="#4a8ab5" stroke-width="0.5">
+        <line x1="0" y1="40" x2="200" y2="40"/>
+        <line x1="0" y1="80" x2="200" y2="80"/>
+        <line x1="0" y1="120" x2="200" y2="120"/>
+        <line x1="40" y1="0" x2="40" y2="160"/>
+        <line x1="80" y1="0" x2="80" y2="160"/>
+        <line x1="120" y1="0" x2="120" y2="160"/>
+        <line x1="160" y1="0" x2="160" y2="160"/>
+      </g>
+      <!-- individual tile motifs (simplified azulejo) -->
+      <g stroke="#7ab8d4" stroke-width="1" fill="none">
+        <circle cx="20" cy="20" r="8"/> <circle cx="20" cy="20" r="4"/>
+        <circle cx="60" cy="20" r="8"/> <circle cx="60" cy="20" r="4"/>
+        <circle cx="100" cy="20" r="8"/> <circle cx="100" cy="20" r="4"/>
+        <circle cx="140" cy="20" r="8"/> <circle cx="140" cy="20" r="4"/>
+        <circle cx="180" cy="20" r="8"/> <circle cx="180" cy="20" r="4"/>
+        <circle cx="20" cy="60" r="8"/> <circle cx="20" cy="60" r="4"/>
+        <circle cx="60" cy="60" r="8"/> <circle cx="60" cy="60" r="4"/>
+        <path d="M85,52 Q100,44 115,52 Q100,70 85,52Z" fill="#4a8ab5" opacity="0.5"/>
+        <circle cx="140" cy="60" r="8"/> <circle cx="140" cy="60" r="4"/>
+        <circle cx="180" cy="60" r="8"/> <circle cx="180" cy="60" r="4"/>
+      </g>
+      <g stroke="#c9973a" stroke-width="1" fill="none">
+        <path d="M4,84 L36,84 M20,76 L20,92"/>
+        <path d="M44,84 L76,84 M60,76 L60,92"/>
+        <path d="M124,84 L156,84 M140,76 L140,92"/>
+        <path d="M164,84 L196,84 M180,76 L180,92"/>
+        <path d="M4,124 L36,124 M20,116 L20,132"/>
+        <path d="M44,124 L76,124 M60,116 L60,132"/>
+        <path d="M84,124 L116,124 M100,116 L100,132"/>
+        <path d="M124,124 L156,124 M140,116 L140,132"/>
+        <path d="M164,124 L196,124 M180,116 L180,132"/>
+      </g>
+    </g>
+
+    <!-- === PORTO DOM LUIS BRIDGE === -->
+    <g transform="translate(680,480)">
+      <!-- bridge arch -->
+      <path d="M0,160 Q120,60 240,160" fill="none" stroke="#c0522d" stroke-width="5"/>
+      <path d="M0,180 Q120,80 240,180" fill="none" stroke="#c0522d" stroke-width="3"/>
+      <!-- bridge deck -->
+      <rect x="-10" y="155" width="260" height="8" fill="#8b6344"/>
+      <!-- bridge suspenders -->
+      <g stroke="#c0522d" stroke-width="1.5">
+        <line x1="20" y1="163" x2="34" y2="116"/>
+        <line x1="50" y1="163" x2="60" y2="86"/>
+        <line x1="80" y1="163" x2="84" y2="74"/>
+        <line x1="110" y1="163" x2="112" y2="68"/>
+        <line x1="130" y1="163" x2="132" y2="68"/>
+        <line x1="160" y1="163" x2="158" y2="74"/>
+        <line x1="190" y1="163" x2="182" y2="86"/>
+        <line x1="220" y1="163" x2="208" y2="116"/>
+      </g>
+      <!-- Porto buildings under bridge -->
+      <rect x="10" y="130" width="28" height="30" fill="#c0522d" opacity="0.8"/>
+      <rect x="45" y="120" width="22" height="40" fill="#d4903a" opacity="0.8"/>
+      <polygon points="10,130 38,130 24,115" fill="#8b3a1a"/>
+      <polygon points="45,120 67,120 56,105" fill="#9a6218"/>
+    </g>
+
+    <!-- === COLOSSEUM (right side) === -->
+    <g transform="translate(950,430)">
+      <!-- main elliptical body -->
+      <ellipse cx="140" cy="120" rx="140" ry="80" fill="#ddd0b0"/>
+      <ellipse cx="140" cy="120" rx="120" ry="65" fill="#e8d8b8"/>
+      <ellipse cx="140" cy="120" rx="100" ry="50" fill="#c9b990" opacity="0.4"/>
+      <!-- arched windows row 1 -->
+      <g fill="#5a4a35" opacity="0.6">
+        <ellipse cx="30" cy="115" rx="7" ry="10"/>
+        <ellipse cx="55" cy="105" rx="7" ry="10"/>
+        <ellipse cx="82" cy="98" rx="7" ry="10"/>
+        <ellipse cx="110" cy="95" rx="7" ry="10"/>
+        <ellipse cx="140" cy="94" rx="7" ry="10"/>
+        <ellipse cx="170" cy="95" rx="7" ry="10"/>
+        <ellipse cx="198" cy="98" rx="7" ry="10"/>
+        <ellipse cx="225" cy="105" rx="7" ry="10"/>
+        <ellipse cx="250" cy="115" rx="7" ry="10"/>
+      </g>
+      <!-- arched windows row 2 (upper) -->
+      <g fill="#5a4a35" opacity="0.4">
+        <ellipse cx="55" cy="88" rx="5" ry="7"/>
+        <ellipse cx="82" cy="80" rx="5" ry="7"/>
+        <ellipse cx="110" cy="77" rx="5" ry="7"/>
+        <ellipse cx="140" cy="76" rx="5" ry="7"/>
+        <ellipse cx="170" cy="77" rx="5" ry="7"/>
+        <ellipse cx="198" cy="80" rx="5" ry="7"/>
+        <ellipse cx="225" cy="88" rx="5" ry="7"/>
+      </g>
+      <!-- ruins broken top -->
+      <path d="M140,40 L160,44 L165,36 L180,42 L190,35 L205,40 L210,50 L220,46 L230,55 L240,52 L250,60 Q250,70 250,80" fill="#ddd0b0" stroke="#c9b990" stroke-width="1"/>
+      <!-- ground shadow -->
+      <ellipse cx="140" cy="195" rx="130" ry="12" fill="#7a6244" opacity="0.3"/>
+    </g>
+
+    <!-- === PORTUGUESE ROOSTER (Galo de Barcelos) === -->
+    <g transform="translate(670,560)">
+      <!-- body -->
+      <ellipse cx="30" cy="40" rx="22" ry="18" fill="#c0522d"/>
+      <!-- tail feathers -->
+      <path d="M8,38 Q-10,20 -5,5 Q0,20 8,30Z" fill="#1a3a5c"/>
+      <path d="M8,40 Q-14,28 -12,12 Q-4,26 5,35Z" fill="#c9973a"/>
+      <path d="M8,44 Q-12,42 -14,28 Q-2,36 5,42Z" fill="#5a7a5e"/>
+      <!-- neck/head -->
+      <ellipse cx="48" cy="28" rx="10" ry="12" fill="#c0522d"/>
+      <!-- beak -->
+      <polygon points="57,26 65,28 57,30" fill="#c9973a"/>
+      <!-- eye -->
+      <circle cx="52" cy="25" r="3" fill="#1a1a1a"/>
+      <circle cx="52" cy="25" r="1" fill="white"/>
+      <!-- comb -->
+      <path d="M42,18 Q45,8 48,16 Q51,6 54,14 Q57,4 58,14" fill="#c0522d" stroke="#8b2020" stroke-width="0.5"/>
+      <!-- wattle -->
+      <path d="M55,30 Q60,36 55,40" fill="#c0522d" stroke="#8b2020" stroke-width="0.5"/>
+      <!-- wing detail -->
+      <path d="M15,35 Q25,28 40,32" fill="none" stroke="#8b2020" stroke-width="1"/>
+      <!-- legs -->
+      <line x1="28" y1="56" x2="22" y2="72" stroke="#c9973a" stroke-width="2"/>
+      <line x1="35" y1="56" x2="38" y2="72" stroke="#c9973a" stroke-width="2"/>
+      <!-- feet -->
+      <path d="M22,72 L16,76 M22,72 L22,78 M22,72 L28,76" stroke="#c9973a" stroke-width="1.5"/>
+      <path d="M38,72 L32,76 M38,72 L38,78 M38,72 L44,76" stroke="#c9973a" stroke-width="1.5"/>
+      <!-- polka dot pattern -->
+      <circle cx="22" cy="38" r="2" fill="#c9973a" opacity="0.7"/>
+      <circle cx="30" cy="44" r="2" fill="#c9973a" opacity="0.7"/>
+      <circle cx="38" cy="38" r="2" fill="#c9973a" opacity="0.7"/>
+      <circle cx="26" cy="30" r="2" fill="#1a3a5c" opacity="0.5"/>
+    </g>
+
+    <!-- === PASTEL DE NATA === -->
+    <g transform="translate(790,600)">
+      <!-- cup outer -->
+      <path d="M5,0 Q0,30 8,45 L42,45 Q50,30 45,0Z" fill="#c9973a"/>
+      <!-- fluted ridges -->
+      <g stroke="#a07828" stroke-width="0.8" fill="none">
+        <path d="M10,2 Q8,24 12,44"/>
+        <path d="M18,1 Q16,24 20,44"/>
+        <path d="M26,0 Q24,24 28,44"/>
+        <path d="M34,1 Q34,24 36,44"/>
+        <path d="M40,2 Q40,24 38,44"/>
+      </g>
+      <!-- custard filling -->
+      <ellipse cx="25" cy="8" rx="18" ry="9" fill="#f5d06a"/>
+      <!-- burnt top pattern -->
+      <ellipse cx="25" cy="8" rx="10" ry="5" fill="#c9973a" opacity="0.4"/>
+      <circle cx="20" cy="7" r="3" fill="#8b5a00" opacity="0.3"/>
+      <circle cx="30" cy="9" r="4" fill="#8b5a00" opacity="0.25"/>
+    </g>
+
+    <!-- === SAILING SHIP (caravel) === -->
+    <g transform="translate(460,620)">
+      <!-- hull -->
+      <path d="M0,30 Q30,50 80,45 Q100,42 110,30 L90,28 L20,25Z" fill="#5a3e2b"/>
+      <!-- main mast -->
+      <line x1="55" y1="25" x2="55" y2="-40" stroke="#3a2418" stroke-width="2"/>
+      <!-- main sail -->
+      <path d="M55,-38 L90,-10 L55,20Z" fill="#f5efe6" opacity="0.85"/>
+      <path d="M55,-38 L20,-10 L55,20Z" fill="#e8d8b8" opacity="0.85"/>
+      <!-- cross on sail -->
+      <path d="M55,-20 L75,-12 M55,-20 L35,-12 M55,-38 L55,0" stroke="#c0522d" stroke-width="1.5" fill="none"/>
+      <!-- foremast -->
+      <line x1="25" y1="23" x2="25" y2="-10" stroke="#3a2418" stroke-width="1.5"/>
+      <path d="M25,-8 L45,4 L25,18Z" fill="#f5efe6" opacity="0.75"/>
+      <!-- water ripples -->
+      <path d="M-10,46 Q20,40 50,46 Q80,52 110,46" fill="none" stroke="#4a8ab5" stroke-width="1"/>
+    </g>
+
+    <!-- === TRAM (tram 28) === -->
+    <g transform="translate(390,660)">
+      <!-- tram body -->
+      <rect x="0" y="10" width="80" height="40" fill="#e8c040" rx="4"/>
+      <!-- windows -->
+      <rect x="6" y="16" width="14" height="14" fill="#4a8ab5" opacity="0.7" rx="2"/>
+      <rect x="24" y="16" width="14" height="14" fill="#4a8ab5" opacity="0.7" rx="2"/>
+      <rect x="42" y="16" width="14" height="14" fill="#4a8ab5" opacity="0.7" rx="2"/>
+      <rect x="60" y="16" width="14" height="14" fill="#4a8ab5" opacity="0.7" rx="2"/>
+      <!-- door -->
+      <rect x="34" y="32" width="12" height="18" fill="#c9973a" rx="1"/>
+      <!-- roof -->
+      <rect x="-2" y="4" width="84" height="8" fill="#c9a800" rx="3"/>
+      <!-- wheels -->
+      <circle cx="18" cy="52" r="7" fill="#2a1f14"/>
+      <circle cx="62" cy="52" r="7" fill="#2a1f14"/>
+      <circle cx="18" cy="52" r="3" fill="#888"/>
+      <circle cx="62" cy="52" r="3" fill="#888"/>
+      <!-- trolley pole -->
+      <line x1="40" y1="4" x2="40" y2="-14" stroke="#888" stroke-width="1.5"/>
+      <line x1="40" y1="-14" x2="60" y2="-18" stroke="#888" stroke-width="1"/>
+      <!-- stripe -->
+      <rect x="0" y="30" width="80" height="4" fill="#c9a800"/>
+      <!-- text -->
+      <text x="28" y="28" font-size="5" fill="#2a1f14" font-family="sans-serif" font-weight="bold">28E</text>
+    </g>
+
+    <!-- === PORTUGUESE FLAG (distant) === -->
+    <g transform="translate(1310,440)">
+      <!-- flagpole -->
+      <line x1="0" y1="0" x2="0" y2="160" stroke="#5a3e2b" stroke-width="3"/>
+      <!-- flag green -->
+      <rect x="0" y="4" width="30" height="60" fill="#006600"/>
+      <!-- flag red -->
+      <rect x="30" y="4" width="60" height="60" fill="#ff0000"/>
+      <!-- coat of arms simplified -->
+      <circle cx="30" cy="34" r="16" fill="#e8d800" stroke="#e8d800" stroke-width="1"/>
+      <circle cx="30" cy="34" r="11" fill="#006600"/>
+      <circle cx="30" cy="34" r="7" fill="#0000aa"/>
+    </g>
+
+    <!-- === OLIVE TREES === -->
+    <g transform="translate(1200,580)">
+      <rect x="28" y="80" width="6" height="60" fill="#5a3e2b"/>
+      <ellipse cx="31" cy="72" rx="28" ry="36" fill="#5a7a5e" opacity="0.9"/>
+      <ellipse cx="31" cy="68" rx="20" ry="28" fill="#6b8f5e" opacity="0.7"/>
+    </g>
+    <g transform="translate(1260,600)">
+      <rect x="20" y="60" width="5" height="50" fill="#5a3e2b"/>
+      <ellipse cx="22" cy="54" rx="20" ry="28" fill="#5a7a5e" opacity="0.8"/>
+      <ellipse cx="22" cy="50" rx="14" ry="22" fill="#6b8f5e" opacity="0.6"/>
+    </g>
+    <g transform="translate(1330,570)">
+      <rect x="24" y="70" width="6" height="60" fill="#5a3e2b"/>
+      <ellipse cx="27" cy="62" rx="26" ry="34" fill="#5a7a5e" opacity="0.9"/>
+    </g>
+
+    <!-- === WINE BOTTLES / BARRELS === -->
+    <g transform="translate(1100,650)">
+      <ellipse cx="20" cy="15" rx="18" ry="8" fill="#5a3e2b"/>
+      <ellipse cx="20" cy="15" rx="18" ry="8" fill="#7a5e3a" opacity="0.5"/>
+      <rect x="2" y="14" width="36" height="36" fill="#5a3e2b" rx="2"/>
+      <ellipse cx="20" cy="50" rx="18" ry="8" fill="#4a2e1a"/>
+      <g stroke="#7a5e3a" stroke-width="1" fill="none">
+        <line x1="2" y1="24" x2="38" y2="24"/>
+        <line x1="2" y1="34" x2="38" y2="34"/>
+        <line x1="2" y1="44" x2="38" y2="44"/>
+      </g>
+    </g>
+  </svg>
+</div>
+
+<!-- ── PAGE HEADER ── -->
+<div class="page-header">
+  <div class="trip-eyebrow">✈ Tiffany & Kyle · May 31 – June 13, 2026</div>
+  <div class="trip-title">Europe <em>2026</em></div>
+  <div class="trip-subtitle">Lisbon · Porto · Rome</div>
+  <div class="city-pills">
+    <span class="city-pill">🇵🇹 Portugal</span>
+    <span class="city-pill">🇮🇹 Italy</span>
+    <span class="city-pill">14 Days</span>
+    <span class="city-pill">3 Cities</span>
+  </div>
+</div>
+
+<!-- ── MAIN CONTENT ── -->
+<div class="main">
+
+  <!-- ═══ LISBON ═══ -->
+  <div class="section-header">
+    <div class="section-flag lisbon">🏛</div>
+    <div class="section-title-wrap">
+      <h2>Lisbon</h2>
+      <span>May 31 – June 5 · Tivoli Avenida Liberdade</span>
+    </div>
+  </div>
+
+  <!-- May 31 -->
+  <div class="day-card" onclick="toggle(this)">
+    <div class="day-header">
+      <div class="day-date-badge"><div class="month">May</div><div class="num">31</div></div>
+      <div class="day-title-wrap">
+        <h3>Denver → Montreal → Lisbon ✈</h3>
+        <div class="day-sub">Sunday · Travel Day</div>
+      </div>
+      <div class="day-badges"><span class="badge travel">Travel</span></div>
+      <div class="chevron">▾</div>
+    </div>
+    <div class="day-body">
+      <div class="timeline">
+        <div class="tl-item highlight">
+          <div class="tl-dot"></div>
+          <div class="tl-time">11:25 AM</div>
+          <div class="tl-name">DEN → Montreal (YUL) <span class="conf">OKRHMC</span></div>
+          <div class="tl-detail">Air Canada 1074 · Arrives 5:07 PM · 4.5 hr layover</div>
+        </div>
+        <div class="tl-item highlight">
+          <div class="tl-dot"></div>
+          <div class="tl-time">9:45 PM</div>
+          <div class="tl-name">Montreal → Lisbon (LIS)</div>
+          <div class="tl-detail">Air Canada 812 · Overnight flight · Arrives 9:20 AM</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- June 1 -->
+  <div class="day-card" onclick="toggle(this)">
+    <div class="day-header">
+      <div class="day-date-badge"><div class="month">Jun</div><div class="num">1</div></div>
+      <div class="day-title-wrap">
+        <h3>Arrive Lisbon — Easy Day</h3>
+        <div class="day-sub">Monday · Chiado & Rest</div>
+      </div>
+      <div class="chevron">▾</div>
+    </div>
+    <div class="day-body">
+      <div class="timeline">
+        <div class="tl-item highlight">
+          <div class="tl-dot"></div>
+          <div class="tl-time">9:20 AM</div>
+          <div class="tl-name">Arrive Lisbon (LIS)</div>
+          <div class="tl-detail">Terminal 1 · Check in to Tivoli Avenida Liberdade</div>
+          <div class="venue-links">
+            <a class="venue-link maps" href="https://maps.google.com/?q=Tivoli+Avenida+Liberdade+Lisboa" target="_blank">🗺 Hotel Maps</a>
+            <a class="venue-link book" href="https://www.tivolihotels.com/en/tivoli-avenida-liberdade-lisboa" target="_blank">🏨 Hotel Site</a>
+          </div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-dot"></div>
+          <div class="tl-time">11:00 AM</div>
+          <div class="tl-name">☕ Fábrica da Nata</div>
+          <div class="tl-detail">Pastéis de nata + espresso · Praça dos Restauradores · €1.50 each</div>
+          <div class="tl-tip">Don't skip the cinnamon!</div>
+          <div class="venue-links">
+            <a class="venue-link maps" href="https://maps.google.com/?q=Fábrica+da+Nata+Praça+dos+Restauradores+Lisbon" target="_blank">🗺 Maps</a>
+            <a class="venue-link menu" href="https://fabricadanata.pt/en/fabrica-da-nata/" target="_blank">📋 Menu</a>
+          </div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-dot"></div>
+          <div class="tl-time">11:30 AM</div>
+          <div class="tl-name">🚶 Chiado Wander</div>
+          <div class="tl-detail">Livraria Bertrand (world's oldest bookstore) → Miradouro de São Pedro de Alcântara → Elevador da Glória funicular (€4)</div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-dot"></div>
+          <div class="tl-time">1:00 PM</div>
+          <div class="tl-name">🍽 Lunch — Bougain Avenida</div>
+          <div class="tl-detail">Garden restaurant inside Valverde Hotel · Av. da Liberdade 164</div>
+          <div class="tl-tip">Order the Pink Sour</div>
+          <div class="venue-links">
+            <a class="venue-link maps" href="https://maps.google.com/?q=Bougain+Avenida+164+Avenida+da+Liberdade+Lisbon" target="_blank">🗺 Maps</a>
+            <a class="venue-link menu" href="https://bougain.pt/en/bougain-avenida-liberdade-lisbon/" target="_blank">📋 Menu</a>
+          </div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-dot"></div>
+          <div class="tl-time">Afternoon</div>
+          <div class="tl-name">😴 Rest & Recharge</div>
+          <div class="tl-detail">You've been up 30+ hours — nap encouraged</div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-dot"></div>
+          <div class="tl-time">5:00 PM</div>
+          <div class="tl-name">🍷 Nova Wine Bar</div>
+          <div class="tl-detail">4.9 stars · Petisco snacks + Portuguese wines by the glass · Rua Nova do Almada 20, Chiado</div>
+          <div class="venue-links">
+            <a class="venue-link maps" href="https://maps.google.com/?q=Nova+Wine+Bar+Rua+Nova+do+Almada+20+Lisbon" target="_blank">🗺 Maps</a>
+            <a class="venue-link menu" href="https://novawinebar.pt/" target="_blank">📋 Menu</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- June 2 -->
+  <div class="day-card" onclick="toggle(this)">
+    <div class="day-header">
+      <div class="day-date-badge"><div class="month">Jun</div><div class="num">2</div></div>
+      <div class="day-title-wrap">
+        <h3>🎉 Flexport Founder's Club Begins</h3>
+        <div class="day-sub">Tuesday · Arrivals Day</div>
+      </div>
+      <div class="day-badges"><span class="badge flexport">Flexport</span></div>
+      <div class="chevron">▾</div>
+    </div>
+    <div class="day-body">
+      <div class="timeline">
+        <div class="tl-item highlight">
+          <div class="tl-dot"></div>
+          <div class="tl-time">All Day</div>
+          <div class="tl-name">Flexport Arrivals Day</div>
+          <div class="tl-detail">Welcome Reception with Kyle's Flexport Founder's Club group</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- June 3 -->
+  <div class="day-card" onclick="toggle(this)">
+    <div class="day-header">
+      <div class="day-date-badge"><div class="month">Jun</div><div class="num">3</div></div>
+      <div class="day-title-wrap">
+        <h3>🎂 Kyle's 38th Birthday!</h3>
+        <div class="day-sub">Wednesday · Lisbon Navy Museum & Birthday Dinner</div>
+      </div>
+      <div class="day-badges"><span class="badge birthday">🎂 Birthday</span><span class="badge flexport">Flexport</span></div>
+      <div class="chevron">▾</div>
+    </div>
+    <div class="day-body">
+      <div class="timeline">
+        <div class="tl-item">
+          <div class="tl-dot"></div>
+          <div class="tl-time">Daytime</div>
+          <div class="tl-name">Lisbon Navy Museum</div>
+          <div class="tl-detail">Flexport group event · Museu de Marinha</div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-dot"></div>
+          <div class="tl-time">Daytime</div>
+          <div class="tl-name">Port of Lisbon Tour</div>
+          <div class="tl-detail">Flexport group event</div>
+        </div>
+        <div class="tl-item highlight">
+          <div class="tl-dot"></div>
+          <div class="tl-time">Evening</div>
+          <div class="tl-name">🍽 Birthday Dinner — Praia no Parque</div>
+          <div class="tl-detail">Flexport group dinner · Kyle's 38th!</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- June 4 -->
+  <div class="day-card" onclick="toggle(this)">
+    <div class="day-header">
+      <div class="day-date-badge"><div class="month">Jun</div><div class="num">4</div></div>
+      <div class="day-title-wrap">
+        <h3>Sintra & Cascais + Farewell Dinner</h3>
+        <div class="day-sub">Thursday · Optional Activities</div>
+      </div>
+      <div class="day-badges"><span class="badge flexport">Flexport</span><span class="badge confirmed">✅ Booked</span></div>
+      <div class="chevron">▾</div>
+    </div>
+    <div class="day-body">
+      <div class="timeline">
+        <div class="tl-item highlight">
+          <div class="tl-dot"></div>
+          <div class="tl-time">Daytime</div>
+          <div class="tl-name">🚙 Sintra & Cascais Off-Road Adventure ✅</div>
+          <div class="tl-detail">UNESCO fairy-tale palaces, forested hills, and coastal Cascais — off-road spots most tourists never see</div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-dot"></div>
+          <div class="tl-time">Evening</div>
+          <div class="tl-name">Flexport Farewell Dinner</div>
+          <div class="tl-detail">Final group dinner</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- June 5 travel -->
+  <div class="day-card" onclick="toggle(this)">
+    <div class="day-header">
+      <div class="day-date-badge"><div class="month">Jun</div><div class="num">5</div></div>
+      <div class="day-title-wrap">
+        <h3>Lisbon → Porto 🚆</h3>
+        <div class="day-sub">Friday · Travel to Porto</div>
+      </div>
+      <div class="day-badges"><span class="badge travel">Travel</span></div>
+      <div class="chevron">▾</div>
+    </div>
+    <div class="day-body">
+      <div class="timeline">
+        <div class="tl-item">
+          <div class="tl-dot"></div>
+          <div class="tl-time">Morning</div>
+          <div class="tl-name">Flexport Departures</div>
+          <div class="tl-detail">Check out of Tivoli Avenida Liberdade</div>
+        </div>
+        <div class="tl-item highlight">
+          <div class="tl-dot"></div>
+          <div class="tl-time">Afternoon</div>
+          <div class="tl-name">🚆 High-Speed Train to Porto</div>
+          <div class="tl-detail">~3 hours · Alfa Pendular service</div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-dot"></div>
+          <div class="tl-time">Evening</div>
+          <div class="tl-name">Check In — InterContinental Porto</div>
+          <div class="tl-detail">Palácio das Cardosas · Praça da Liberdade 25</div>
+          <div class="venue-links">
+            <a class="venue-link maps" href="https://maps.google.com/?q=InterContinental+Porto+Palácio+das+Cardosas" target="_blank">🗺 Hotel Maps</a>
+            <a class="venue-link book" href="https://www.ihg.com/intercontinental/hotels/us/en/porto/prtha/hoteldetail" target="_blank">🏨 Hotel Site</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══ PORTO ═══ -->
+  <div class="section-header">
+    <div class="section-flag porto">🍷</div>
+    <div class="section-title-wrap">
+      <h2>Porto</h2>
+      <span>June 5–8 · InterContinental Porto – Palácio das Cardosas</span>
+    </div>
+  </div>
+
+  <!-- June 5-6 Explore -->
+  <div class="day-card" onclick="toggle(this)">
+    <div class="day-header">
+      <div class="day-date-badge"><div class="month">Jun</div><div class="num">5–6</div></div>
+      <div class="day-title-wrap">
+        <h3>Porto — Explore & Wine</h3>
+        <div class="day-sub">Friday–Saturday · Ribeira, River Cruise & Dom Luís Bridge</div>
+      </div>
+      <div class="chevron">▾</div>
+    </div>
+    <div class="day-body">
+      <div class="timeline">
+        <div class="tl-item">
+          <div class="tl-dot"></div>
+          <div class="tl-time">Anytime</div>
+          <div class="tl-name">Ribeira & Douro Waterfront</div>
+          <div class="tl-detail">Walk along the river, wine caves across the Dom Luís I Bridge</div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-dot"></div>
+          <div class="tl-time">Morning</div>
+          <div class="tl-name">⛵ Douro River 6 Bridges Cruise</div>
+          <div class="tl-detail">1-hour boat tour departing from Ribeira — steps from the hotel</div>
+          <div class="tl-tip">Book online in advance · Morning departures are cooler and less crowded</div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-dot"></div>
+          <div class="tl-time">Anytime</div>
+          <div class="tl-name">⛪ Igreja de Santa Clara</div>
+          <div class="tl-detail">15th-century Gothic church with one of Portugal's most ornate gilded baroque interiors · R. de Santa Clara</div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-dot"></div>
+          <div class="tl-time">Anytime</div>
+          <div class="tl-name">Clérigos Tower</div>
+          <div class="tl-detail">Panoramic views over the city</div>
+        </div>
+        <div class="tl-item highlight">
+          <div class="tl-dot"></div>
+          <div class="tl-time">June 6 · 5:00 PM</div>
+          <div class="tl-name">🍷 English Port Tasting — Graham's Port Lodge</div>
+          <div class="tl-detail">Vila Nova de Gaia across the Dom Luís I Bridge · Book at grahams.com · Allow 1.5 hours</div>
+          <div class="venue-links">
+            <a class="venue-link maps" href="https://maps.google.com/?q=Graham's+Port+Lodge+Vila+Nova+de+Gaia+Porto" target="_blank">🗺 Maps</a>
+            <a class="venue-link book" href="https://www.grahams-port.com/visit" target="_blank">🎟 Book Tasting</a>
+          </div>
+        </div>
+        <div class="tl-item highlight">
+          <div class="tl-dot"></div>
+          <div class="tl-time">June 6 · Evening</div>
+          <div class="tl-name">🍽 Dinner — Vinum Restaurant</div>
+          <div class="tl-detail">Graham's own restaurant above the lodge · Panoramic Douro views · Reserve at grahams.com/vinum</div>
+          <div class="venue-links">
+            <a class="venue-link maps" href="https://maps.google.com/?q=Vinum+Restaurant+Graham's+Vila+Nova+de+Gaia" target="_blank">🗺 Maps</a>
+            <a class="venue-link menu" href="https://www.grahams-port.com/vinum" target="_blank">📋 Menu</a>
+            <a class="venue-link book" href="https://www.vinumatgrahams.com" target="_blank">📅 Reserve</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- June 7 -->
+  <div class="day-card" onclick="toggle(this)">
+    <div class="day-header">
+      <div class="day-date-badge"><div class="month">Jun</div><div class="num">7</div></div>
+      <div class="day-title-wrap">
+        <h3>🐟 Matosinhos — Beach & Sardines</h3>
+        <div class="day-sub">Saturday · Atlantic Beach Day</div>
+      </div>
+      <div class="chevron">▾</div>
+    </div>
+    <div class="day-body">
+      <div class="timeline">
+        <div class="tl-item">
+          <div class="tl-dot"></div>
+          <div class="tl-time">Morning</div>
+          <div class="tl-name">Beach at Matosinhos</div>
+          <div class="tl-detail">Wide Atlantic beach where the Douro meets the ocean</div>
+          <div class="tl-tip">~15 min Uber (~€10) or metro Line A from Trindade (~30 min, €2)</div>
+        </div>
+        <div class="tl-item highlight">
+          <div class="tl-dot"></div>
+          <div class="tl-time">12:00 PM</div>
+          <div class="tl-name">🐟 Sardine Lunch — Lage São Padrão</div>
+          <div class="tl-detail">R. Heróis de França 516 · The sardine destination on this legendary street · Closed Mon & Sun</div>
+          <div class="tl-tip">Book in advance or arrive right at noon</div>
+          <div class="venue-links">
+            <a class="venue-link maps" href="https://maps.google.com/?q=Restaurante+Lage+Senhor+do+Padrão+Rua+Heróis+de+França+516+Matosinhos" target="_blank">🗺 Maps</a>
+            <a class="venue-link book" href="https://www.facebook.com/restlage" target="_blank">📞 Facebook/Book</a>
+          </div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-dot"></div>
+          <div class="tl-time">Afternoon</div>
+          <div class="tl-name">Stroll Back to Historic Center</div>
+          <div class="tl-detail">Stop at Igreja de Santa Clara on the way</div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-dot"></div>
+          <div class="tl-time">Evening</div>
+          <div class="tl-name">Last Night in Porto — Galerias de Paris</div>
+          <div class="tl-detail">Easy drinks and dinner on Porto's liveliest street</div>
+          <div class="tl-tip">Early night — 8:20 AM Ryanair tomorrow!</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- June 8 travel -->
+  <div class="day-card" onclick="toggle(this)">
+    <div class="day-header">
+      <div class="day-date-badge"><div class="month">Jun</div><div class="num">8</div></div>
+      <div class="day-title-wrap">
+        <h3>Porto → Rome ✈</h3>
+        <div class="day-sub">Monday · Ryanair FR 6008</div>
+      </div>
+      <div class="day-badges"><span class="badge travel">Travel</span></div>
+      <div class="chevron">▾</div>
+    </div>
+    <div class="day-body">
+      <div class="timeline">
+        <div class="tl-item highlight">
+          <div class="tl-dot"></div>
+          <div class="tl-time">8:20 AM</div>
+          <div class="tl-name">Porto (OPO) → Rome Fiumicino</div>
+          <div class="tl-detail">Ryanair FR 6008 · Check confirmation for terminal</div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-dot"></div>
+          <div class="tl-time">Afternoon</div>
+          <div class="tl-name">Arrive Rome & Check In</div>
+          <div class="tl-detail">Hotel Splendide Royal · Via di Porta Pinciana 14 · Near Spanish Steps</div>
+          <div class="venue-links">
+            <a class="venue-link maps" href="https://maps.google.com/?q=Hotel+Splendide+Royal+Via+di+Porta+Pinciana+14+Rome" target="_blank">🗺 Hotel Maps</a>
+            <a class="venue-link book" href="https://www.splendideroyal.com" target="_blank">🏨 Hotel Site</a>
+          </div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-dot"></div>
+          <div class="tl-time">Evening</div>
+          <div class="tl-name">First Night in Rome</div>
+          <div class="tl-detail">Rooftop bar Adèle for welcome drinks — Michelin-starred Mirabelle for dinner if you're up for it</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══ ROME ═══ -->
+  <div class="section-header">
+    <div class="section-flag rome">🏟</div>
+    <div class="section-title-wrap">
+      <h2>Rome</h2>
+      <span>June 8–13 · Hotel Splendide Royal</span>
+    </div>
+  </div>
+
+  <!-- June 9 -->
+  <div class="day-card" onclick="toggle(this)">
+    <div class="day-header">
+      <div class="day-date-badge"><div class="month">Jun</div><div class="num">9</div></div>
+      <div class="day-title-wrap">
+        <h3>🏛 Vatican + Cooking Class</h3>
+        <div class="day-sub">Tuesday</div>
+      </div>
+      <div class="day-badges"><span class="badge confirmed">✅ Confirmed</span></div>
+      <div class="chevron">▾</div>
+    </div>
+    <div class="day-body">
+      <div class="timeline">
+        <div class="tl-item highlight">
+          <div class="tl-dot"></div>
+          <div class="tl-time">10:30 AM</div>
+          <div class="tl-name">Vatican Museums & Sistine Chapel ✅ <span class="conf">2L2N0NNO2JVMU3NTL</span></div>
+          <div class="tl-detail">Allow full morning — 7km of galleries</div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-dot"></div>
+          <div class="tl-time">1:00 PM</div>
+          <div class="tl-name">Lunch near Vatican</div>
+          <div class="tl-detail">Bonci Pizzarium (10 min walk) — best pizza al taglio in Rome</div>
+          <div class="venue-links">
+            <a class="venue-link maps" href="https://maps.google.com/?q=Bonci+Pizzarium+Via+della+Meloria+43+Rome" target="_blank">🗺 Maps</a>
+            <a class="venue-link menu" href="https://bonci.it" target="_blank">📋 Menu</a>
+          </div>
+        </div>
+        <div class="tl-item highlight">
+          <div class="tl-dot"></div>
+          <div class="tl-time">3:30 PM</div>
+          <div class="tl-name">🍝 Cooking Class — Il Segreto Restaurant <span class="conf">#340905523</span></div>
+          <div class="tl-detail">Via Candia 71 · 3 hours</div>
+          <div class="venue-links">
+            <a class="venue-link maps" href="https://maps.google.com/?q=Il+Segreto+Restaurant+Via+Candia+71+Rome" target="_blank">🗺 Maps</a>
+          </div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-dot"></div>
+          <div class="tl-time">6:30 PM</div>
+          <div class="tl-name">Dinner — Eat What You Made!</div>
+          <div class="tl-detail">Your cooking class ends with a full meal</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- June 10 -->
+  <div class="day-card" onclick="toggle(this)">
+    <div class="day-header">
+      <div class="day-date-badge"><div class="month">Jun</div><div class="num">10</div></div>
+      <div class="day-title-wrap">
+        <h3>🏟 Colosseum Day</h3>
+        <div class="day-sub">Wednesday</div>
+      </div>
+      <div class="day-badges"><span class="badge confirmed">✅ Confirmed</span></div>
+      <div class="chevron">▾</div>
+    </div>
+    <div class="day-body">
+      <div class="timeline">
+        <div class="tl-item highlight">
+          <div class="tl-dot"></div>
+          <div class="tl-time">8:00 AM</div>
+          <div class="tl-name">Colosseum, Roman Forum & Palatine Hill ✅ <span class="conf">GYGVN3BR2YH6</span></div>
+          <div class="tl-detail">Via della Polveriera 13 · Guided tour · 2.5 hours</div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-dot"></div>
+          <div class="tl-time">10:30 AM</div>
+          <div class="tl-name">Explore Roman Forum & Palatine Hill</div>
+          <div class="tl-detail">Included with ticket — take your time</div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-dot"></div>
+          <div class="tl-time">Afternoon</div>
+          <div class="tl-name">Monti Neighborhood</div>
+          <div class="tl-detail">Lunch at a local trattoria, boutique shopping, gelato</div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-dot"></div>
+          <div class="tl-time">Evening</div>
+          <div class="tl-name">Free Evening</div>
+          <div class="tl-detail">Campo de' Fiori for aperitivo · dinner in Trastevere</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- June 11 -->
+  <div class="day-card" onclick="toggle(this)">
+    <div class="day-header">
+      <div class="day-date-badge"><div class="month">Jun</div><div class="num">11</div></div>
+      <div class="day-title-wrap">
+        <h3>🏛 Pantheon Day — Icons & Neighborhoods</h3>
+        <div class="day-sub">Thursday</div>
+      </div>
+      <div class="chevron">▾</div>
+    </div>
+    <div class="day-body">
+      <div class="timeline">
+        <div class="tl-item highlight">
+          <div class="tl-dot"></div>
+          <div class="tl-time">9:00 AM</div>
+          <div class="tl-name">🏛 Pantheon</div>
+          <div class="tl-detail">Book timed entry ~€5 in advance · Allow 30–45 min inside</div>
+          <div class="tl-tip">The oculus morning light is extraordinary</div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-dot"></div>
+          <div class="tl-time">10:00 AM</div>
+          <div class="tl-name">☕ Sant'Eustachio il Caffè</div>
+          <div class="tl-detail">3-min walk from Pantheon · One of the best espressos in Rome</div>
+          <div class="tl-tip">Order the gran caffè — comes pre-sweetened</div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-dot"></div>
+          <div class="tl-time">10:30 AM</div>
+          <div class="tl-name">🚶 Piazza Navona → Trevi Fountain → Spanish Steps</div>
+          <div class="tl-detail">Bernini's fountains at Navona · Trevi mid-morning before crowds peak · End at Spanish Steps</div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-dot"></div>
+          <div class="tl-time">Afternoon</div>
+          <div class="tl-name">Lunch & Wander</div>
+          <div class="tl-detail">One block off the tourist piazzas = better food, half the price</div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-dot"></div>
+          <div class="tl-time">6:00 PM</div>
+          <div class="tl-name">🌆 Trastevere Evening</div>
+          <div class="tl-detail">Cobblestone streets, aperitivo, dinner at a local trattoria</div>
+          <div class="tl-tip">Avoid anywhere with photos on the menu · Taxi or bus across the river</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- June 12 -->
+  <div class="day-card" onclick="toggle(this)">
+    <div class="day-header">
+      <div class="day-date-badge"><div class="month">Jun</div><div class="num">12</div></div>
+      <div class="day-title-wrap">
+        <h3>🎨 Art & Farewell Dinner</h3>
+        <div class="day-sub">Friday · Borghese + Mirabelle</div>
+      </div>
+      <div class="day-badges"><span class="badge confirmed">✅ Mirabelle</span></div>
+      <div class="chevron">▾</div>
+    </div>
+    <div class="day-body">
+      <div class="timeline">
+        <div class="tl-item highlight">
+          <div class="tl-dot"></div>
+          <div class="tl-time">9:00 AM</div>
+          <div class="tl-name">🎨 Borghese Gallery</div>
+          <div class="tl-detail">Right next to hotel · Bernini sculptures · 2-hour timed entry</div>
+          <div class="tl-tip">BOOK at ticketborghese.it ASAP — books out weeks ahead</div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-dot"></div>
+          <div class="tl-time">11:30 AM</div>
+          <div class="tl-name">🖼 Bernini & the Barberinis — Palazzo Barberini</div>
+          <div class="tl-detail">Via delle Quattro Fontane 13 · Exhibition closes June 14 — last chance!</div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-dot"></div>
+          <div class="tl-time">Afternoon</div>
+          <div class="tl-name">Slow Afternoon</div>
+          <div class="tl-detail">Last Roman wander, gelato, souvenir shopping · Pack and prep for early departure</div>
+        </div>
+        <div class="tl-item highlight">
+          <div class="tl-dot"></div>
+          <div class="tl-time">7:00 PM</div>
+          <div class="tl-name">🍽 Farewell Dinner — Mirabelle ✅</div>
+          <div class="tl-detail">Michelin-starred rooftop at Hotel Splendide Royal · Reservation confirmed · Panoramic Rome skyline views</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- June 13 -->
+  <div class="day-card" onclick="toggle(this)">
+    <div class="day-header">
+      <div class="day-date-badge"><div class="month">Jun</div><div class="num">13</div></div>
+      <div class="day-title-wrap">
+        <h3>Rome → Denver 🏠</h3>
+        <div class="day-sub">Saturday · Travel Home</div>
+      </div>
+      <div class="day-badges"><span class="badge travel">Travel</span></div>
+      <div class="chevron">▾</div>
+    </div>
+    <div class="day-body">
+      <div class="timeline">
+        <div class="tl-item">
+          <div class="tl-dot"></div>
+          <div class="tl-time">Morning</div>
+          <div class="tl-name">Last Morning in Rome</div>
+          <div class="tl-detail">Final espresso · Pack up · Check out by noon</div>
+        </div>
+        <div class="tl-item highlight">
+          <div class="tl-dot"></div>
+          <div class="tl-time">2:20 PM</div>
+          <div class="tl-name">Rome FCO → Denver (DEN) <span class="conf">BDCFS3</span></div>
+          <div class="tl-detail">United/Lufthansa · Terminal 3</div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-dot"></div>
+          <div class="tl-time">5:55 PM</div>
+          <div class="tl-name">🏠 Arrive Denver</div>
+          <div class="tl-detail">Welcome home! Mabel will be very excited. 🐾</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══ BOOKING REMINDERS ═══ -->
+  <div class="booking-box">
+    <div class="booking-box-header">
+      <span style="font-size:20px">📋</span>
+      <h3>Booking Reminders</h3>
+    </div>
+    <div class="booking-list">
+      <div class="booking-item">
+        <div class="booking-status">✅</div>
+        <div class="booking-text">
+          <strong>Vatican Museums <span class="conf-num">2L2N0NNO2JVMU3NTL</span></strong>
+          <span>June 9, 10:30 AM</span>
+        </div>
+      </div>
+      <div class="booking-item">
+        <div class="booking-status">✅</div>
+        <div class="booking-text">
+          <strong>Colosseum Guided Tour <span class="conf-num">GYGVN3BR2YH6</span></strong>
+          <span>June 10, 8:00 AM</span>
+        </div>
+      </div>
+      <div class="booking-item">
+        <div class="booking-status">✅</div>
+        <div class="booking-text">
+          <strong>Cooking Class — Il Segreto <span class="conf-num">#340905523</span></strong>
+          <span>June 9, 3:30 PM</span>
+        </div>
+      </div>
+      <div class="booking-item">
+        <div class="booking-status">✅</div>
+        <div class="booking-text">
+          <strong>Mirabelle Farewell Dinner</strong>
+          <span>June 12, 7:00 PM</span>
+        </div>
+      </div>
+      <div class="booking-item">
+        <div class="booking-status">⚠️</div>
+        <div class="booking-text">
+          <strong>Borghese Gallery <span class="asap">ASAP</span></strong>
+          <span>Book at ticketborghese.it — books out weeks ahead</span>
+        </div>
+      </div>
+      <div class="booking-item">
+        <div class="booking-status">⚠️</div>
+        <div class="booking-text">
+          <strong>Graham's Port Tasting + Vinum Dinner <span class="asap">ASAP</span></strong>
+          <span>June 6 · Book at grahams.com</span>
+        </div>
+      </div>
+      <div class="booking-item">
+        <div class="booking-status">⚠️</div>
+        <div class="booking-text">
+          <strong>Douro River 6 Bridges Cruise <span class="asap">ASAP</span></strong>
+          <span>Book online · Morning departure June 6</span>
+        </div>
+      </div>
+      <div class="booking-item">
+        <div class="booking-status">⚠️</div>
+        <div class="booking-text">
+          <strong>Lage São Padrão, Matosinhos <span class="asap">ASAP</span></strong>
+          <span>June 7 sardine lunch — book in advance</span>
+        </div>
+      </div>
+      <div class="booking-item">
+        <div class="booking-status">ℹ️</div>
+        <div class="booking-text">
+          <strong>Hotel Splendide Royal Breakfast</strong>
+          <span>NOT included — €38.50/person, confirm at booking</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══ BAGGAGE ═══ -->
+  <div class="baggage-box">
+    <div class="baggage-box-header">
+      <h3>🧳 Baggage Rules by Flight</h3>
+    </div>
+    <div class="baggage-grid">
+      <div class="baggage-col">
+        <h4>✈ Air Canada · DEN→LIS · May 31</h4>
+        <div class="row"><span class="label">Carry-on</span><span class="val">55×40×23 cm, no weight limit</span></div>
+        <div class="row"><span class="label">Personal item</span><span class="val">33×43×16 cm</span></div>
+        <div class="row"><span class="label">Checked bag</span><span class="val ok">~1 bag included, 23 kg max</span></div>
+        <div class="row"><span class="label">Overweight fee</span><span class="val warn">$100–120 if 23–32 kg</span></div>
+      </div>
+      <div class="baggage-col">
+        <h4>✈ Ryanair · OPO→FCO · June 8</h4>
+        <div class="row"><span class="label">Free bag</span><span class="val warn">Small under-seat only (40×30×20)</span></div>
+        <div class="row"><span class="label">Carry-on</span><span class="val ok">✅ Priority purchased, 10 kg</span></div>
+        <div class="row"><span class="label">Checked bag</span><span class="val ok">✅ 20 kg per person purchased</span></div>
+        <div class="row"><span class="label">⚠️ Gate oversized</span><span class="val warn">€69.99 fee on the spot</span></div>
+      </div>
+      <div class="baggage-col">
+        <h4>✈ United/Lufthansa · FCO→DEN · June 13</h4>
+        <div class="row"><span class="label">Carry-on</span><span class="val">56×35×23 cm</span></div>
+        <div class="row"><span class="label">Personal item</span><span class="val">43×25×23 cm</span></div>
+        <div class="row"><span class="label">Checked bag</span><span class="val ok">~1 bag included, 23 kg / 62 linear in</span></div>
+        <div class="row"><span class="label">Overweight fee</span><span class="val warn">$100–200 if 51–70 lbs</span></div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<div class="footer">Buon Viaggio · Boa Viagem · Have the most incredible trip 🌊</div>
+
+<script>
+  function toggle(card) {
+    card.classList.toggle('open');
+  }
+
+  // Auto-open the first card
+  document.querySelector('.day-card').classList.add('open');
+
+  // Dismiss splash after load bar finishes
+  window.addEventListener('load', () => {
+    setTimeout(() => {
+      const splash = document.getElementById('splash');
+      splash.classList.add('hidden');
+      setTimeout(() => splash.remove(), 700);
+    }, 1500);
+  });
+</script>
+</body>
+</html>
