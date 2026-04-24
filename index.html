@@ -218,8 +218,483 @@
   }
   .venue-link:active { opacity: 0.7; }
   .venue-link.maps  { background: #dce8f7; color: #1a3a5c; }
+  .venue-link.dir   { background: #e8f7e8; color: #1a5c2a; }
   .venue-link.menu  { background: #fff0d4; color: #8b5a00; }
   .venue-link.book  { background: #d4edda; color: #276033; }
+
+  /* ── BIG COUNTDOWN CLOCK ── */
+  #big-countdown {
+    margin: 20px auto 0;
+    max-width: 340px;
+    background: rgba(255,255,255,0.07);
+    border: 1px solid rgba(201,151,58,0.35);
+    border-radius: 20px;
+    padding: 18px 24px 16px;
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+  }
+  .bcd-label {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--tile-gold);
+    text-align: center;
+    margin-bottom: 10px;
+  }
+  .bcd-segments {
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    gap: 6px;
+  }
+  .bcd-seg {
+    text-align: center;
+    min-width: 52px;
+  }
+  .bcd-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 42px;
+    font-weight: 700;
+    color: var(--white);
+    line-height: 1;
+    letter-spacing: -1px;
+  }
+  .bcd-unit {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 10px;
+    font-weight: 500;
+    color: rgba(245,239,230,0.45);
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    margin-top: 3px;
+  }
+  .bcd-colon {
+    font-family: 'Playfair Display', serif;
+    font-size: 36px;
+    color: var(--tile-gold);
+    opacity: 0.5;
+    padding-bottom: 6px;
+    animation: colonBlink 1s step-end infinite;
+  }
+  @keyframes colonBlink {
+    0%, 100% { opacity: 0.5; }
+    50% { opacity: 0.1; }
+  }
+  .bcd-sub {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 13px;
+    color: rgba(245,239,230,0.4);
+    text-align: center;
+    margin-top: 10px;
+  }
+  .bcd-departed {
+    font-family: 'Playfair Display', serif;
+    font-size: 22px;
+    color: var(--tile-gold);
+    text-align: center;
+    padding: 8px 0;
+  }
+
+  /* ── STICKY TOP BAR ── */
+  #top-bar {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(26,58,92,0.97);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(201,151,58,0.2);
+    padding: 10px 16px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+  #top-bar::-webkit-scrollbar { display: none; }
+
+  .top-bar-widget {
+    flex-shrink: 0;
+    background: rgba(255,255,255,0.07);
+    border: 1px solid rgba(201,151,58,0.2);
+    border-radius: 12px;
+    padding: 7px 12px;
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    cursor: pointer;
+    transition: background 0.15s;
+  }
+  .top-bar-widget:active { background: rgba(255,255,255,0.13); }
+
+  .tbw-icon { font-size: 16px; }
+  .tbw-label {
+    font-size: 10px;
+    color: rgba(245,239,230,0.5);
+    font-weight: 500;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    display: block;
+    line-height: 1;
+    margin-bottom: 1px;
+  }
+  .tbw-value {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--white);
+    line-height: 1;
+  }
+  .tbw-value.gold { color: var(--tile-gold); }
+
+  /* today button */
+  #today-btn {
+    flex-shrink: 0;
+    background: var(--tile-gold);
+    border: none;
+    border-radius: 12px;
+    padding: 7px 14px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--tile-blue);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    transition: opacity 0.15s;
+  }
+  #today-btn:active { opacity: 0.8; }
+
+  /* ── OFFLINE BANNER ── */
+  #offline-banner {
+    display: none;
+    position: fixed;
+    bottom: calc(16px + env(safe-area-inset-bottom));
+    left: 50%;
+    transform: translateX(-50%);
+    background: #333;
+    color: white;
+    font-size: 12px;
+    font-weight: 500;
+    padding: 8px 18px;
+    border-radius: 100px;
+    z-index: 200;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.4);
+    white-space: nowrap;
+  }
+  #offline-banner.show { display: block; }
+
+  /* ── MODAL OVERLAY ── */
+  .modal-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.6);
+    z-index: 500;
+    align-items: flex-end;
+    justify-content: center;
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+  }
+  .modal-overlay.open { display: flex; }
+
+  .modal-sheet {
+    background: #fff;
+    border-radius: 20px 20px 0 0;
+    width: 100%;
+    max-width: 600px;
+    max-height: 82vh;
+    overflow-y: auto;
+    padding: 0 0 calc(24px + env(safe-area-inset-bottom));
+    animation: slideUp 0.3s ease;
+  }
+  @keyframes slideUp {
+    from { transform: translateY(100%); }
+    to   { transform: translateY(0); }
+  }
+
+  .modal-handle {
+    width: 36px;
+    height: 4px;
+    background: #ddd;
+    border-radius: 2px;
+    margin: 12px auto 0;
+  }
+
+  .modal-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px 20px 12px;
+    border-bottom: 1px solid #f0ebe3;
+  }
+  .modal-header h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 20px;
+    color: var(--tile-blue);
+  }
+  .modal-close {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background: #f0ebe3;
+    border: none;
+    font-size: 16px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #666;
+  }
+  .modal-body { padding: 16px 20px; }
+
+  /* ── WEATHER MODAL ── */
+  .weather-city-row {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+    margin-bottom: 14px;
+  }
+  .weather-city-btn {
+    border: 2px solid #e8e0d4;
+    background: #fdfaf6;
+    border-radius: 10px;
+    padding: 8px;
+    text-align: center;
+    cursor: pointer;
+    font-family: 'DM Sans', sans-serif;
+    transition: all 0.15s;
+  }
+  .weather-city-btn.active {
+    border-color: var(--tile-blue);
+    background: var(--tile-blue);
+    color: white;
+  }
+  .weather-city-btn .wc-name { font-size: 13px; font-weight: 600; }
+  .weather-city-btn .wc-dates { font-size: 10px; opacity: 0.6; }
+
+  .weather-display {
+    background: linear-gradient(135deg, #1a3a5c, #2d6ba0);
+    border-radius: 16px;
+    padding: 20px;
+    color: white;
+    text-align: center;
+  }
+  .weather-temp {
+    font-family: 'Playfair Display', serif;
+    font-size: 52px;
+    font-weight: 700;
+    line-height: 1;
+  }
+  .weather-desc {
+    font-size: 15px;
+    opacity: 0.8;
+    margin: 4px 0 12px;
+    font-style: italic;
+  }
+  .weather-meta {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+    margin-top: 12px;
+  }
+  .weather-meta-item { font-size: 11px; opacity: 0.75; }
+  .weather-meta-item strong { display: block; font-size: 14px; opacity: 1; }
+  #weather-loading {
+    text-align: center;
+    padding: 30px;
+    color: #888;
+    font-style: italic;
+  }
+
+  /* ── CLOCK MODAL ── */
+  .clock-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+  }
+  .clock-card {
+    background: #fdfaf6;
+    border: 1px solid #e8e0d4;
+    border-radius: 14px;
+    padding: 16px;
+    text-align: center;
+  }
+  .clock-card.highlight {
+    background: var(--tile-blue);
+    border-color: var(--tile-blue);
+    color: white;
+  }
+  .clock-city-name {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    opacity: 0.6;
+    margin-bottom: 6px;
+  }
+  .clock-time {
+    font-family: 'Playfair Display', serif;
+    font-size: 28px;
+    font-weight: 700;
+    line-height: 1;
+  }
+  .clock-date {
+    font-size: 11px;
+    opacity: 0.5;
+    margin-top: 4px;
+  }
+  .clock-tz {
+    font-size: 10px;
+    opacity: 0.4;
+    margin-top: 2px;
+  }
+
+  /* ── FLIGHT STATUS MODAL ── */
+  .flight-card {
+    border: 1px solid #e8e0d4;
+    border-radius: 14px;
+    overflow: hidden;
+    margin-bottom: 10px;
+  }
+  .flight-card-header {
+    background: var(--tile-blue);
+    padding: 10px 14px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .flight-card-header .fn {
+    font-family: 'Playfair Display', serif;
+    color: white;
+    font-size: 15px;
+    font-weight: 700;
+  }
+  .flight-card-header .fd {
+    font-size: 11px;
+    color: rgba(255,255,255,0.6);
+  }
+  .flight-card-body {
+    padding: 12px 14px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .flight-airport {
+    text-align: center;
+    min-width: 50px;
+  }
+  .flight-airport .code {
+    font-family: 'Playfair Display', serif;
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--tile-blue);
+  }
+  .flight-airport .time {
+    font-size: 12px;
+    color: #888;
+  }
+  .flight-arrow {
+    flex: 1;
+    text-align: center;
+    font-size: 18px;
+    color: #ccc;
+    position: relative;
+  }
+  .flight-arrow::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 10%;
+    right: 10%;
+    height: 1px;
+    background: #e0d8cc;
+    z-index: 0;
+  }
+  .flight-arrow span { position: relative; z-index: 1; background: white; padding: 0 4px; }
+  .flight-conf {
+    font-size: 11px;
+    padding: 3px 8px;
+    background: #e8f4ec;
+    color: #276033;
+    border-radius: 100px;
+    font-weight: 500;
+  }
+  .flight-check-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 12px;
+    font-weight: 500;
+    padding: 6px 12px;
+    border-radius: 100px;
+    background: #dce8f7;
+    color: var(--tile-blue);
+    text-decoration: none;
+    margin-top: 6px;
+  }
+
+  /* ── PHRASE GUIDE MODAL ── */
+  .phrase-tabs {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 14px;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    padding-bottom: 4px;
+  }
+  .phrase-tab {
+    flex-shrink: 0;
+    padding: 6px 14px;
+    border-radius: 100px;
+    border: 1.5px solid #e0d8cc;
+    background: white;
+    font-size: 12px;
+    font-weight: 500;
+    cursor: pointer;
+    color: #666;
+    transition: all 0.15s;
+  }
+  .phrase-tab.active {
+    background: var(--tile-blue);
+    border-color: var(--tile-blue);
+    color: white;
+  }
+  .phrase-section { display: none; }
+  .phrase-section.active { display: block; }
+  .phrase-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    padding: 11px 0;
+    border-bottom: 1px solid #f0ebe3;
+    gap: 12px;
+  }
+  .phrase-row:last-child { border-bottom: none; }
+  .phrase-en {
+    font-size: 13px;
+    color: #888;
+    min-width: 120px;
+  }
+  .phrase-local {
+    font-family: 'Playfair Display', serif;
+    font-size: 15px;
+    color: var(--tile-blue);
+    text-align: right;
+  }
+  .phrase-local .phonetic {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 11px;
+    color: #aaa;
+    font-style: italic;
+    display: block;
+    font-weight: 400;
+  }
 
   /* ── MAIN LAYOUT ── */
   .main {
@@ -993,6 +1468,324 @@
     <span class="city-pill">14 Days</span>
     <span class="city-pill">3 Cities</span>
   </div>
+
+  <!-- BIG COUNTDOWN -->
+  <div id="big-countdown">
+    <div class="bcd-label" id="bcd-label">Departure in</div>
+    <div class="bcd-segments" id="bcd-segments">
+      <div class="bcd-seg"><div class="bcd-num" id="bcd-days">--</div><div class="bcd-unit">Days</div></div>
+      <div class="bcd-colon">:</div>
+      <div class="bcd-seg"><div class="bcd-num" id="bcd-hours">--</div><div class="bcd-unit">Hours</div></div>
+      <div class="bcd-colon">:</div>
+      <div class="bcd-seg"><div class="bcd-num" id="bcd-mins">--</div><div class="bcd-unit">Mins</div></div>
+    </div>
+    <div class="bcd-sub" id="bcd-sub">May 31, 2026 · DEN 11:25 AM</div>
+  </div>
+</div>
+
+<!-- ── STICKY TOP BAR ── -->
+<div id="top-bar">
+  <button id="today-btn" onclick="jumpToToday()">📅 Today</button>
+
+  <div class="top-bar-widget" onclick="openModal('weather-modal')">
+    <span class="tbw-icon">🌤</span>
+    <div>
+      <span class="tbw-label">Weather</span>
+      <span class="tbw-value" id="tb-weather">Tap to load</span>
+    </div>
+  </div>
+
+  <div class="top-bar-widget" onclick="openModal('clock-modal')">
+    <span class="tbw-icon">🕐</span>
+    <div>
+      <span class="tbw-label">Local Time</span>
+      <span class="tbw-value gold" id="tb-clock">--:--</span>
+    </div>
+  </div>
+
+  <div class="top-bar-widget" onclick="openModal('clock-modal')">
+    <span class="tbw-icon">🏔</span>
+    <div>
+      <span class="tbw-label">Denver</span>
+      <span class="tbw-value" id="tb-denver">--:--</span>
+    </div>
+  </div>
+
+  <div class="top-bar-widget" onclick="openModal('flights-modal')">
+    <span class="tbw-icon">✈️</span>
+    <div>
+      <span class="tbw-label">Flights</span>
+      <span class="tbw-value">Status</span>
+    </div>
+  </div>
+
+  <div class="top-bar-widget" onclick="openModal('phrases-modal')">
+    <span class="tbw-icon">💬</span>
+    <div>
+      <span class="tbw-label">Phrases</span>
+      <span class="tbw-value">PT · IT</span>
+    </div>
+  </div>
+
+</div>
+
+<!-- ── OFFLINE BANNER ── -->
+<div id="offline-banner">📵 You're offline — cached version shown</div>
+
+<!-- ══════════════════════════════════════════
+     WEATHER MODAL
+══════════════════════════════════════════ -->
+<div class="modal-overlay" id="weather-modal" onclick="closeModalOutside(event,'weather-modal')">
+  <div class="modal-sheet">
+    <div class="modal-handle"></div>
+    <div class="modal-header">
+      <h3>🌤 Weather</h3>
+      <button class="modal-close" onclick="closeModal('weather-modal')">✕</button>
+    </div>
+    <div class="modal-body">
+      <div class="weather-city-row">
+        <div class="weather-city-btn active" onclick="loadWeather('Lisbon','May 31–Jun 5',this)">
+          <div class="wc-name">Lisbon</div>
+          <div class="wc-dates">May 31–Jun 5</div>
+        </div>
+        <div class="weather-city-btn" onclick="loadWeather('Porto','Jun 5–8',this)">
+          <div class="wc-name">Porto</div>
+          <div class="wc-dates">Jun 5–8</div>
+        </div>
+        <div class="weather-city-btn" onclick="loadWeather('Rome','Jun 8–13',this)">
+          <div class="wc-name">Rome</div>
+          <div class="wc-dates">Jun 8–13</div>
+        </div>
+      </div>
+      <div id="weather-loading">Loading weather...</div>
+      <div id="weather-display" style="display:none">
+        <div class="weather-display">
+          <div id="w-icon" style="font-size:48px;margin-bottom:8px">🌤</div>
+          <div class="weather-temp"><span id="w-temp">--</span>°F</div>
+          <div class="weather-desc" id="w-desc">Loading...</div>
+          <div class="weather-meta">
+            <div class="weather-meta-item"><strong id="w-feel">--°</strong>Feels like</div>
+            <div class="weather-meta-item"><strong id="w-humid">--%</strong>Humidity</div>
+            <div class="weather-meta-item"><strong id="w-wind">-- km/h</strong>Wind</div>
+          </div>
+        </div>
+        <p style="font-size:11px;color:#aaa;text-align:center;margin-top:10px;font-style:italic">Live conditions · June averages shown when offline</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════
+     CLOCK MODAL
+══════════════════════════════════════════ -->
+<div class="modal-overlay" id="clock-modal" onclick="closeModalOutside(event,'clock-modal')">
+  <div class="modal-sheet">
+    <div class="modal-handle"></div>
+    <div class="modal-header">
+      <h3>🕐 World Clocks</h3>
+      <button class="modal-close" onclick="closeModal('clock-modal')">✕</button>
+    </div>
+    <div class="modal-body">
+      <div class="clock-grid">
+        <div class="clock-card highlight">
+          <div class="clock-city-name">Lisbon</div>
+          <div class="clock-time" id="clock-lisbon">--:--</div>
+          <div class="clock-date" id="date-lisbon">---</div>
+          <div class="clock-tz">Europe/Lisbon (WEST)</div>
+        </div>
+        <div class="clock-card highlight">
+          <div class="clock-city-name">Porto</div>
+          <div class="clock-time" id="clock-porto">--:--</div>
+          <div class="clock-date" id="date-porto">---</div>
+          <div class="clock-tz">Europe/Lisbon (WEST)</div>
+        </div>
+        <div class="clock-card highlight">
+          <div class="clock-city-name">Rome</div>
+          <div class="clock-time" id="clock-rome">--:--</div>
+          <div class="clock-date" id="date-rome">---</div>
+          <div class="clock-tz">Europe/Rome (CEST)</div>
+        </div>
+        <div class="clock-card">
+          <div class="clock-city-name">Denver</div>
+          <div class="clock-time" id="clock-denver">--:--</div>
+          <div class="clock-date" id="date-denver">---</div>
+          <div class="clock-tz">America/Denver (MDT)</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════
+     FLIGHTS MODAL
+══════════════════════════════════════════ -->
+<div class="modal-overlay" id="flights-modal" onclick="closeModalOutside(event,'flights-modal')">
+  <div class="modal-sheet">
+    <div class="modal-handle"></div>
+    <div class="modal-header">
+      <h3>✈️ Flight Status</h3>
+      <button class="modal-close" onclick="closeModal('flights-modal')">✕</button>
+    </div>
+    <div class="modal-body">
+
+      <div class="flight-card">
+        <div class="flight-card-header">
+          <span class="fn">Air Canada 1074</span>
+          <span class="fd">May 31 · AC1074</span>
+        </div>
+        <div class="flight-card-body">
+          <div class="flight-airport"><div class="code">DEN</div><div class="time">11:25 AM</div></div>
+          <div class="flight-arrow"><span>✈</span></div>
+          <div class="flight-airport"><div class="code">YUL</div><div class="time">5:07 PM</div></div>
+        </div>
+        <div style="padding:0 14px 12px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px">
+          <span class="flight-conf">OKRHMC</span>
+          <a class="flight-check-btn" href="https://www.aircanada.com/ca/en/aco/home/book/check-in-online.html" target="_blank">🔍 Check Status</a>
+        </div>
+      </div>
+
+      <div class="flight-card">
+        <div class="flight-card-header">
+          <span class="fn">Air Canada 812</span>
+          <span class="fd">May 31 · AC812</span>
+        </div>
+        <div class="flight-card-body">
+          <div class="flight-airport"><div class="code">YUL</div><div class="time">9:45 PM</div></div>
+          <div class="flight-arrow"><span>✈</span></div>
+          <div class="flight-airport"><div class="code">LIS</div><div class="time">9:20 AM+1</div></div>
+        </div>
+        <div style="padding:0 14px 12px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px">
+          <span class="flight-conf">OKRHMC</span>
+          <a class="flight-check-btn" href="https://www.aircanada.com/ca/en/aco/home/book/check-in-online.html" target="_blank">🔍 Check Status</a>
+        </div>
+      </div>
+
+      <div class="flight-card">
+        <div class="flight-card-header">
+          <span class="fn">Ryanair FR 6008</span>
+          <span class="fd">June 8 · FR6008</span>
+        </div>
+        <div class="flight-card-body">
+          <div class="flight-airport"><div class="code">OPO</div><div class="time">8:20 AM</div></div>
+          <div class="flight-arrow"><span>✈</span></div>
+          <div class="flight-airport"><div class="code">FCO</div><div class="time">~11:50 AM</div></div>
+        </div>
+        <div style="padding:0 14px 12px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px">
+          <span class="flight-conf" style="background:#fff0d4;color:#8b5a00">Check App</span>
+          <a class="flight-check-btn" href="https://www.ryanair.com/gb/en/manage-my-booking/my-bookings" target="_blank">🔍 Check Status</a>
+        </div>
+      </div>
+
+      <div class="flight-card">
+        <div class="flight-card-header">
+          <span class="fn">United / Lufthansa</span>
+          <span class="fd">June 13 · Return Home</span>
+        </div>
+        <div class="flight-card-body">
+          <div class="flight-airport"><div class="code">FCO</div><div class="time">2:20 PM</div></div>
+          <div class="flight-arrow"><span>✈</span></div>
+          <div class="flight-airport"><div class="code">DEN</div><div class="time">5:55 PM</div></div>
+        </div>
+        <div style="padding:0 14px 12px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px">
+          <span class="flight-conf">BDCFS3</span>
+          <a class="flight-check-btn" href="https://www.united.com/en/us/manageres/mytrips" target="_blank">🔍 United Status</a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════
+     PHRASE GUIDE MODAL
+══════════════════════════════════════════ -->
+<div class="modal-overlay" id="phrases-modal" onclick="closeModalOutside(event,'phrases-modal')">
+  <div class="modal-sheet">
+    <div class="modal-handle"></div>
+    <div class="modal-header">
+      <h3>💬 Phrase Guide</h3>
+      <button class="modal-close" onclick="closeModal('phrases-modal')">✕</button>
+    </div>
+    <div class="modal-body">
+      <div class="phrase-tabs">
+        <div class="phrase-tab active" onclick="switchPhraseTab('pt-basics',this)">🇵🇹 Basics</div>
+        <div class="phrase-tab" onclick="switchPhraseTab('pt-food',this)">🍽 Food & Drink</div>
+        <div class="phrase-tab" onclick="switchPhraseTab('pt-nav',this)">🗺 Getting Around</div>
+        <div class="phrase-tab" onclick="switchPhraseTab('it-basics',this)">🇮🇹 Italian</div>
+        <div class="phrase-tab" onclick="switchPhraseTab('it-food',this)">🍝 Italian Food</div>
+      </div>
+
+      <div class="phrase-section active" id="tab-pt-basics">
+        <div class="phrase-row"><span class="phrase-en">Hello</span><div class="phrase-local">Olá<span class="phonetic">oh-LAH</span></div></div>
+        <div class="phrase-row"><span class="phrase-en">Good morning</span><div class="phrase-local">Bom dia<span class="phonetic">bom DEE-ah</span></div></div>
+        <div class="phrase-row"><span class="phrase-en">Good evening</span><div class="phrase-local">Boa noite<span class="phonetic">BOH-ah NOY-teh</span></div></div>
+        <div class="phrase-row"><span class="phrase-en">Please</span><div class="phrase-local">Por favor<span class="phonetic">por fah-VOR</span></div></div>
+        <div class="phrase-row"><span class="phrase-en">Thank you</span><div class="phrase-local">Obrigado/a<span class="phonetic">oh-bree-GAH-doo (m) / -dah (f)</span></div></div>
+        <div class="phrase-row"><span class="phrase-en">You're welcome</span><div class="phrase-local">De nada<span class="phonetic">deh NAH-dah</span></div></div>
+        <div class="phrase-row"><span class="phrase-en">Excuse me</span><div class="phrase-local">Com licença<span class="phonetic">com lee-SEN-sah</span></div></div>
+        <div class="phrase-row"><span class="phrase-en">Sorry</span><div class="phrase-local">Desculpe<span class="phonetic">desh-KOOL-peh</span></div></div>
+        <div class="phrase-row"><span class="phrase-en">Yes / No</span><div class="phrase-local">Sim / Não<span class="phonetic">seem / now</span></div></div>
+        <div class="phrase-row"><span class="phrase-en">Do you speak English?</span><div class="phrase-local">Fala inglês?<span class="phonetic">FAH-lah een-GLESH</span></div></div>
+        <div class="phrase-row"><span class="phrase-en">How much?</span><div class="phrase-local">Quanto custa?<span class="phonetic">KWAN-too KOOS-tah</span></div></div>
+        <div class="phrase-row"><span class="phrase-en">Where is…?</span><div class="phrase-local">Onde fica…?<span class="phonetic">ON-deh FEE-kah</span></div></div>
+        <div class="phrase-row"><span class="phrase-en">Help!</span><div class="phrase-local">Socorro!<span class="phonetic">soh-KOH-hoo</span></div></div>
+      </div>
+
+      <div class="phrase-section" id="tab-pt-food">
+        <div class="phrase-row"><span class="phrase-en">A table for two</span><div class="phrase-local">Uma mesa para dois<span class="phonetic">OO-mah MAY-zah PAH-rah doysh</span></div></div>
+        <div class="phrase-row"><span class="phrase-en">The menu, please</span><div class="phrase-local">A ementa, por favor<span class="phonetic">ah eh-MEN-tah por fah-VOR</span></div></div>
+        <div class="phrase-row"><span class="phrase-en">I'll have…</span><div class="phrase-local">Quero…<span class="phonetic">KEH-roo</span></div></div>
+        <div class="phrase-row"><span class="phrase-en">What do you recommend?</span><div class="phrase-local">O que recomenda?<span class="phonetic">oh keh reh-koh-MEN-dah</span></div></div>
+        <div class="phrase-row"><span class="phrase-en">Delicious!</span><div class="phrase-local">Delicioso!<span class="phonetic">deh-lee-see-OH-zoo</span></div></div>
+        <div class="phrase-row"><span class="phrase-en">The bill, please</span><div class="phrase-local">A conta, por favor<span class="phonetic">ah KON-tah por fah-VOR</span></div></div>
+        <div class="phrase-row"><span class="phrase-en">A glass of wine</span><div class="phrase-local">Um copo de vinho<span class="phonetic">oom KOH-poo deh VEEN-yoo</span></div></div>
+        <div class="phrase-row"><span class="phrase-en">A coffee</span><div class="phrase-local">Um café<span class="phonetic">oom kah-FEH</span></div></div>
+        <div class="phrase-row"><span class="phrase-en">Cheers!</span><div class="phrase-local">Saúde!<span class="phonetic">sah-OO-deh</span></div></div>
+        <div class="phrase-row"><span class="phrase-en">Pastéis de nata</span><div class="phrase-local">Pastéis de nata<span class="phonetic">pash-TAYSH deh NAH-tah · custard tarts 🥐</span></div></div>
+        <div class="phrase-row"><span class="phrase-en">Grilled sardines</span><div class="phrase-local">Sardinhas assadas<span class="phonetic">sar-DEEN-yash ah-SAH-dahs</span></div></div>
+        <div class="phrase-row"><span class="phrase-en">Bacalhau (salt cod)</span><div class="phrase-local">Bacalhau<span class="phonetic">bah-kah-LYOW · national dish</span></div></div>
+      </div>
+
+      <div class="phrase-section" id="tab-pt-nav">
+        <div class="phrase-row"><span class="phrase-en">Where is the train station?</span><div class="phrase-local">Onde fica a estação?<span class="phonetic">ON-deh FEE-kah ah esh-tah-SOW</span></div></div>
+        <div class="phrase-row"><span class="phrase-en">One ticket to Porto</span><div class="phrase-local">Um bilhete para o Porto<span class="phonetic">oom beel-YEH-teh PAH-rah oo POR-too</span></div></div>
+        <div class="phrase-row"><span class="phrase-en">I need a taxi</span><div class="phrase-local">Preciso de um táxi<span class="phonetic">preh-SEE-zoo deh oom TAK-see</span></div></div>
+        <div class="phrase-row"><span class="phrase-en">Turn left / right</span><div class="phrase-local">Vire à esquerda / direita<span class="phonetic">VEE-reh ah esh-KEHR-dah / dee-RAY-tah</span></div></div>
+        <div class="phrase-row"><span class="phrase-en">Straight ahead</span><div class="phrase-local">Em frente<span class="phonetic">em FREN-teh</span></div></div>
+        <div class="phrase-row"><span class="phrase-en">How far is it?</span><div class="phrase-local">A que distância fica?<span class="phonetic">ah keh deesh-TAN-see-ah FEE-kah</span></div></div>
+        <div class="phrase-row"><span class="phrase-en">Airport</span><div class="phrase-local">Aeroporto<span class="phonetic">ah-eh-ro-POR-too</span></div></div>
+        <div class="phrase-row"><span class="phrase-en">Hotel</span><div class="phrase-local">Hotel<span class="phonetic">oh-TEL</span></div></div>
+      </div>
+
+      <div class="phrase-section" id="tab-it-basics">
+        <div class="phrase-row"><span class="phrase-en">Hello / Hi</span><div class="phrase-local">Ciao / Salve<span class="phonetic">CHOW / SAL-veh</span></div></div>
+        <div class="phrase-row"><span class="phrase-en">Good morning</span><div class="phrase-local">Buongiorno<span class="phonetic">bwon-JOR-no</span></div></div>
+        <div class="phrase-row"><span class="phrase-en">Good evening</span><div class="phrase-local">Buonasera<span class="phonetic">bwoh-nah-SEH-rah</span></div></div>
+        <div class="phrase-row"><span class="phrase-en">Please</span><div class="phrase-local">Per favore<span class="phonetic">per fah-VOH-reh</span></div></div>
+        <div class="phrase-row"><span class="phrase-en">Thank you</span><div class="phrase-local">Grazie<span class="phonetic">GRAT-zee-eh</span></div></div>
+        <div class="phrase-row"><span class="phrase-en">You're welcome</span><div class="phrase-local">Prego<span class="phonetic">PREH-go</span></div></div>
+        <div class="phrase-row"><span class="phrase-en">Excuse me</span><div class="phrase-local">Scusi / Permesso<span class="phonetic">SKOO-zee / per-MES-so</span></div></div>
+        <div class="phrase-row"><span class="phrase-en">Yes / No</span><div class="phrase-local">Sì / No<span class="phonetic">see / no</span></div></div>
+        <div class="phrase-row"><span class="phrase-en">Do you speak English?</span><div class="phrase-local">Parla inglese?<span class="phonetic">PAR-lah een-GLEH-zeh</span></div></div>
+        <div class="phrase-row"><span class="phrase-en">How much?</span><div class="phrase-local">Quanto costa?<span class="phonetic">KWAN-to KOS-tah</span></div></div>
+        <div class="phrase-row"><span class="phrase-en">Help!</span><div class="phrase-local">Aiuto!<span class="phonetic">ah-YOO-toh</span></div></div>
+        <div class="phrase-row"><span class="phrase-en">Beautiful!</span><div class="phrase-local">Bellissimo!<span class="phonetic">bel-LIS-see-mo</span></div></div>
+      </div>
+
+      <div class="phrase-section" id="tab-it-food">
+        <div class="phrase-row"><span class="phrase-en">A table for two</span><div class="phrase-local">Un tavolo per due<span class="phonetic">oon TAH-vo-lo per DOO-eh</span></div></div>
+        <div class="phrase-row"><span class="phrase-en">The menu, please</span><div class="phrase-local">Il menu, per favore<span class="phonetic">eel meh-NOO per fah-VOH-reh</span></div></div>
+        <div class="phrase-row"><span class="phrase-en">What do you recommend?</span><div class="phrase-local">Cosa consiglia?<span class="phonetic">KO-zah kon-SEEL-yah</span></div></div>
+        <div class="phrase-row"><span class="phrase-en">The bill, please</span><div class="phrase-local">Il conto, per favore<span class="phonetic">eel KON-to per fah-VOH-reh</span></div></div>
+        <div class="phrase-row"><span class="phrase-en">Delicious!</span><div class="phrase-local">Buonissimo!<span class="phonetic">bwoh-NIS-see-mo</span></div></div>
+        <div class="phrase-row"><span class="phrase-en">An espresso</span><div class="phrase-local">Un caffè<span class="phonetic">oon kaf-FEH · always standing at bar</span></div></div>
+        <div class="phrase-row"><span class="phrase-en">A glass of red wine</span><div class="phrase-local">Un bicchiere di vino rosso<span class="phonetic">oon bee-KYEH-reh dee VEE-no ROS-so</span></div></div>
+        <div class="phrase-row"><span class="phrase-en">Cheers!</span><div class="phrase-local">Salute! / Cin cin!<span class="phonetic">sah-LOO-teh / chin chin</span></div></div>
+        <div class="phrase-row"><span class="phrase-en">Pizza by the slice</span><div class="phrase-local">Pizza al taglio<span class="phonetic">PEET-sah al TAL-yo · Bonci style!</span></div></div>
+        <div class="phrase-row"><span class="phrase-en">I'm allergic to…</span><div class="phrase-local">Sono allergico a…<span class="phonetic">SOH-no ah-LER-jee-ko ah</span></div></div>
+      </div>
+    </div>
+  </div>
 </div>
 
 <!-- ── MAIN CONTENT ── -->
@@ -1054,7 +1847,8 @@
           <div class="tl-name">Arrive Lisbon (LIS)</div>
           <div class="tl-detail">Terminal 1 · Check in to Tivoli Avenida Liberdade</div>
           <div class="venue-links">
-            <a class="venue-link maps" href="https://maps.google.com/?q=Tivoli+Avenida+Liberdade+Lisboa" target="_blank">🗺 Hotel Maps</a>
+            <a class="venue-link maps" href="https://maps.google.com/?q=Tivoli+Avenida+Liberdade+Lisboa" target="_blank">🗺 Maps</a>
+            <a class="venue-link dir" href="https://maps.google.com/?daddr=Tivoli+Avenida+Liberdade+Lisboa&dirflg=d" target="_blank">📍 Directions</a>
             <a class="venue-link book" href="https://www.tivolihotels.com/en/tivoli-avenida-liberdade-lisboa" target="_blank">🏨 Hotel Site</a>
           </div>
         </div>
@@ -1066,6 +1860,7 @@
           <div class="tl-tip">Don't skip the cinnamon!</div>
           <div class="venue-links">
             <a class="venue-link maps" href="https://maps.google.com/?q=Fábrica+da+Nata+Praça+dos+Restauradores+Lisbon" target="_blank">🗺 Maps</a>
+            <a class="venue-link dir" href="https://maps.google.com/?daddr=Fábrica+da+Nata+Praça+dos+Restauradores+Lisbon&dirflg=w" target="_blank">📍 Directions</a>
             <a class="venue-link menu" href="https://fabricadanata.pt/en/fabrica-da-nata/" target="_blank">📋 Menu</a>
           </div>
         </div>
@@ -1083,6 +1878,7 @@
           <div class="tl-tip">Order the Pink Sour</div>
           <div class="venue-links">
             <a class="venue-link maps" href="https://maps.google.com/?q=Bougain+Avenida+164+Avenida+da+Liberdade+Lisbon" target="_blank">🗺 Maps</a>
+            <a class="venue-link dir" href="https://maps.google.com/?daddr=Avenida+da+Liberdade+164+Lisbon&dirflg=w" target="_blank">📍 Directions</a>
             <a class="venue-link menu" href="https://bougain.pt/en/bougain-avenida-liberdade-lisbon/" target="_blank">📋 Menu</a>
           </div>
         </div>
@@ -1099,6 +1895,7 @@
           <div class="tl-detail">4.9 stars · Petisco snacks + Portuguese wines by the glass · Rua Nova do Almada 20, Chiado</div>
           <div class="venue-links">
             <a class="venue-link maps" href="https://maps.google.com/?q=Nova+Wine+Bar+Rua+Nova+do+Almada+20+Lisbon" target="_blank">🗺 Maps</a>
+            <a class="venue-link dir" href="https://maps.google.com/?daddr=Rua+Nova+do+Almada+20+Lisbon&dirflg=w" target="_blank">📍 Directions</a>
             <a class="venue-link menu" href="https://novawinebar.pt/" target="_blank">📋 Menu</a>
           </div>
         </div>
@@ -1224,7 +2021,8 @@
           <div class="tl-name">Check In — InterContinental Porto</div>
           <div class="tl-detail">Palácio das Cardosas · Praça da Liberdade 25</div>
           <div class="venue-links">
-            <a class="venue-link maps" href="https://maps.google.com/?q=InterContinental+Porto+Palácio+das+Cardosas" target="_blank">🗺 Hotel Maps</a>
+            <a class="venue-link maps" href="https://maps.google.com/?q=InterContinental+Porto+Palácio+das+Cardosas" target="_blank">🗺 Maps</a>
+            <a class="venue-link dir" href="https://maps.google.com/?daddr=Praça+da+Liberdade+25+Porto+Portugal&dirflg=d" target="_blank">📍 Directions</a>
             <a class="venue-link book" href="https://www.ihg.com/intercontinental/hotels/us/en/porto/prtha/hoteldetail" target="_blank">🏨 Hotel Site</a>
           </div>
         </div>
@@ -1285,6 +2083,7 @@
           <div class="tl-detail">Vila Nova de Gaia across the Dom Luís I Bridge · Book at grahams.com · Allow 1.5 hours</div>
           <div class="venue-links">
             <a class="venue-link maps" href="https://maps.google.com/?q=Graham's+Port+Lodge+Vila+Nova+de+Gaia+Porto" target="_blank">🗺 Maps</a>
+            <a class="venue-link dir" href="https://maps.google.com/?daddr=Graham's+Port+Lodge+Vila+Nova+de+Gaia&dirflg=w" target="_blank">📍 Directions</a>
             <a class="venue-link book" href="https://www.grahams-port.com/visit" target="_blank">🎟 Book Tasting</a>
           </div>
         </div>
@@ -1295,6 +2094,7 @@
           <div class="tl-detail">Graham's own restaurant above the lodge · Panoramic Douro views · Reserve at grahams.com/vinum</div>
           <div class="venue-links">
             <a class="venue-link maps" href="https://maps.google.com/?q=Vinum+Restaurant+Graham's+Vila+Nova+de+Gaia" target="_blank">🗺 Maps</a>
+            <a class="venue-link dir" href="https://maps.google.com/?daddr=Vinum+Restaurant+Grahams+Vila+Nova+de+Gaia&dirflg=w" target="_blank">📍 Directions</a>
             <a class="venue-link menu" href="https://www.grahams-port.com/vinum" target="_blank">📋 Menu</a>
             <a class="venue-link book" href="https://www.vinumatgrahams.com" target="_blank">📅 Reserve</a>
           </div>
@@ -1330,6 +2130,7 @@
           <div class="tl-tip">Book in advance or arrive right at noon</div>
           <div class="venue-links">
             <a class="venue-link maps" href="https://maps.google.com/?q=Restaurante+Lage+Senhor+do+Padrão+Rua+Heróis+de+França+516+Matosinhos" target="_blank">🗺 Maps</a>
+            <a class="venue-link dir" href="https://maps.google.com/?daddr=Rua+Heróis+de+França+516+Matosinhos+Portugal&dirflg=d" target="_blank">📍 Directions</a>
             <a class="venue-link book" href="https://www.facebook.com/restlage" target="_blank">📞 Facebook/Book</a>
           </div>
         </div>
@@ -1375,7 +2176,8 @@
           <div class="tl-name">Arrive Rome & Check In</div>
           <div class="tl-detail">Hotel Splendide Royal · Via di Porta Pinciana 14 · Near Spanish Steps</div>
           <div class="venue-links">
-            <a class="venue-link maps" href="https://maps.google.com/?q=Hotel+Splendide+Royal+Via+di+Porta+Pinciana+14+Rome" target="_blank">🗺 Hotel Maps</a>
+            <a class="venue-link maps" href="https://maps.google.com/?q=Hotel+Splendide+Royal+Via+di+Porta+Pinciana+14+Rome" target="_blank">🗺 Maps</a>
+            <a class="venue-link dir" href="https://maps.google.com/?daddr=Via+di+Porta+Pinciana+14+Rome+Italy&dirflg=d" target="_blank">📍 Directions</a>
             <a class="venue-link book" href="https://www.splendideroyal.com" target="_blank">🏨 Hotel Site</a>
           </div>
         </div>
@@ -1424,6 +2226,7 @@
           <div class="tl-detail">Bonci Pizzarium (10 min walk) — best pizza al taglio in Rome</div>
           <div class="venue-links">
             <a class="venue-link maps" href="https://maps.google.com/?q=Bonci+Pizzarium+Via+della+Meloria+43+Rome" target="_blank">🗺 Maps</a>
+            <a class="venue-link dir" href="https://maps.google.com/?daddr=Via+della+Meloria+43+Rome+Italy&dirflg=w" target="_blank">📍 Directions</a>
             <a class="venue-link menu" href="https://bonci.it" target="_blank">📋 Menu</a>
           </div>
         </div>
@@ -1434,6 +2237,7 @@
           <div class="tl-detail">Via Candia 71 · 3 hours</div>
           <div class="venue-links">
             <a class="venue-link maps" href="https://maps.google.com/?q=Il+Segreto+Restaurant+Via+Candia+71+Rome" target="_blank">🗺 Maps</a>
+            <a class="venue-link dir" href="https://maps.google.com/?daddr=Via+Candia+71+Rome+Italy&dirflg=w" target="_blank">📍 Directions</a>
           </div>
         </div>
         <div class="tl-item">
@@ -1721,21 +2525,292 @@
 <div class="footer">Buon Viaggio · Boa Viagem · Have the most incredible trip 🌊</div>
 
 <script>
+  // ── TRIP DATES ──
+  const DEPARTURE = new Date('2026-05-31T11:25:00');
+  const TRIP_DAYS = [
+    { date: '2026-05-31', id: null },  // travel
+    { date: '2026-06-01', id: null },
+    { date: '2026-06-02', id: null },
+    { date: '2026-06-03', id: null },
+    { date: '2026-06-04', id: null },
+    { date: '2026-06-05', id: null },
+    { date: '2026-06-06', id: null },
+    { date: '2026-06-07', id: null },
+    { date: '2026-06-08', id: null },
+    { date: '2026-06-09', id: null },
+    { date: '2026-06-10', id: null },
+    { date: '2026-06-11', id: null },
+    { date: '2026-06-12', id: null },
+    { date: '2026-06-13', id: null },
+  ];
+
+  // ── TOGGLE DAY CARDS ──
   function toggle(card) {
     card.classList.toggle('open');
   }
 
-  // Auto-open the first card
-  document.querySelector('.day-card').classList.add('open');
+  // ── MODAL SYSTEM ──
+  function openModal(id) {
+    document.getElementById(id).classList.add('open');
+    if (id === 'clock-modal') updateClocks();
+    if (id === 'weather-modal') loadWeather('Lisbon', 'May 31–Jun 5', document.querySelector('.weather-city-btn.active'));
+  }
+  function closeModal(id) {
+    document.getElementById(id).classList.remove('open');
+  }
+  function closeModalOutside(e, id) {
+    if (e.target === document.getElementById(id)) closeModal(id);
+  }
 
-  // Dismiss splash after load bar finishes
+  // ── BIG COUNTDOWN CLOCK ──
+  function updateCountdown() {
+    const now = new Date();
+    const diff = DEPARTURE - now;
+    const segEl = document.getElementById('bcd-segments');
+    const labelEl = document.getElementById('bcd-label');
+    const subEl = document.getElementById('bcd-sub');
+
+    if (diff <= 0) {
+      // During or after trip
+      const returnDate = new Date('2026-06-13T14:20:00');
+      if (now <= returnDate) {
+        segEl.innerHTML = '<div class="bcd-departed">🛫 En Route!</div>';
+        labelEl.textContent = 'You are in Europe';
+        subEl.textContent = 'Safe travels, Tiffany & Kyle!';
+      } else {
+        segEl.innerHTML = '<div class="bcd-departed">🏠 Welcome Home!</div>';
+        labelEl.textContent = 'Trip Complete';
+        subEl.textContent = 'Mabel missed you';
+      }
+      return;
+    }
+
+    const days  = Math.floor(diff / (1000 * 60 * 60 * 24));
+    const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    const mins  = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+
+    document.getElementById('bcd-days').textContent  = String(days).padStart(2, '0');
+    document.getElementById('bcd-hours').textContent = String(hours).padStart(2, '0');
+    document.getElementById('bcd-mins').textContent  = String(mins).padStart(2, '0');
+    labelEl.textContent = 'Departure in';
+    subEl.textContent = 'May 31, 2026 · DEN 11:25 AM';
+  }
+
+  // ── WORLD CLOCKS ──
+  function updateClocks() {
+    const zones = {
+      lisbon: 'Europe/Lisbon',
+      porto:  'Europe/Lisbon',
+      rome:   'Europe/Rome',
+      denver: 'America/Denver'
+    };
+    Object.entries(zones).forEach(([city, tz]) => {
+      const now = new Date();
+      const timeStr = now.toLocaleTimeString('en-US', { timeZone: tz, hour: '2-digit', minute: '2-digit', hour12: false });
+      const dateStr = now.toLocaleDateString('en-US', { timeZone: tz, weekday: 'short', month: 'short', day: 'numeric' });
+      const el = document.getElementById(`clock-${city}`);
+      const del = document.getElementById(`date-${city}`);
+      if (el) el.textContent = timeStr;
+      if (del) del.textContent = dateStr;
+    });
+    // top bar: show local time based on trip phase
+    const now = new Date();
+    const tripStart = new Date('2026-05-31');
+    const romeStart = new Date('2026-06-08');
+    const tripEnd   = new Date('2026-06-13');
+    let activeTz = 'America/Denver';
+    if (now >= tripStart && now < romeStart) activeTz = 'Europe/Lisbon';
+    else if (now >= romeStart && now <= tripEnd) activeTz = 'Europe/Rome';
+    const localTime = now.toLocaleTimeString('en-US', { timeZone: activeTz, hour: '2-digit', minute: '2-digit', hour12: true });
+    const denverTime = now.toLocaleTimeString('en-US', { timeZone: 'America/Denver', hour: '2-digit', minute: '2-digit', hour12: true });
+    document.getElementById('tb-clock').textContent = localTime;
+    document.getElementById('tb-denver').textContent = denverTime;
+  }
+
+  // ── WEATHER ──
+  const WEATHER_FALLBACK = {
+    Lisbon: { temp: 73, feel: 72, humid: 65, wind: 18, desc: 'Partly cloudy · June average', icon: '⛅' },
+    Porto:  { temp: 70, feel: 68, humid: 70, wind: 22, desc: 'Mild & breezy · June average', icon: '🌤' },
+    Rome:   { temp: 82, feel: 80, humid: 55, wind: 14, desc: 'Sunny & warm · June average', icon: '☀️' }
+  };
+
+  async function loadWeather(city, dates, btn) {
+    // Update tab buttons
+    document.querySelectorAll('.weather-city-btn').forEach(b => b.classList.remove('active'));
+    if (btn) btn.classList.add('active');
+
+    document.getElementById('weather-loading').style.display = 'block';
+    document.getElementById('weather-display').style.display = 'none';
+
+    const coords = { Lisbon: [38.7169, -9.1399], Porto: [41.1579, -8.6291], Rome: [41.9028, 12.4964] };
+    const [lat, lon] = coords[city];
+
+    try {
+      const url = `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current=temperature_2m,apparent_temperature,relative_humidity_2m,wind_speed_10m,weather_code&wind_speed_unit=kmh&temperature_unit=fahrenheit&timezone=auto`;
+      const res = await fetch(url);
+      const data = await res.json();
+      const c = data.current;
+      showWeather(city, Math.round(c.temperature_2m), Math.round(c.apparent_temperature), c.relative_humidity_2m, Math.round(c.wind_speed_10m), wmoDesc(c.weather_code), wmoIcon(c.weather_code));
+    } catch(e) {
+      const f = WEATHER_FALLBACK[city];
+      showWeather(city, f.temp, f.feel, f.humid, f.wind, f.desc, f.icon);
+    }
+  }
+
+  function showWeather(city, temp, feel, humid, wind, desc, icon) {
+    document.getElementById('weather-loading').style.display = 'none';
+    document.getElementById('weather-display').style.display = 'block';
+    document.getElementById('w-icon').textContent = icon;
+    document.getElementById('w-temp').textContent = temp;
+    document.getElementById('w-desc').textContent = desc;
+    document.getElementById('w-feel').textContent = feel + '°F';
+    document.getElementById('w-humid').textContent = humid + '%';
+    document.getElementById('w-wind').textContent = wind + ' km/h';
+    document.getElementById('tb-weather').textContent = `${city} ${temp}°F`;
+  }
+
+  function wmoDesc(code) {
+    if (code === 0) return 'Clear sky';
+    if (code <= 3) return 'Partly cloudy';
+    if (code <= 9) return 'Foggy';
+    if (code <= 19) return 'Drizzle';
+    if (code <= 29) return 'Rain';
+    if (code <= 39) return 'Snow';
+    if (code <= 49) return 'Fog';
+    if (code <= 59) return 'Drizzle';
+    if (code <= 69) return 'Rain';
+    if (code <= 79) return 'Snow';
+    if (code <= 84) return 'Rain showers';
+    if (code <= 94) return 'Thunderstorm';
+    return 'Stormy';
+  }
+  function wmoIcon(code) {
+    if (code === 0) return '☀️';
+    if (code <= 2) return '🌤';
+    if (code <= 3) return '⛅';
+    if (code <= 49) return '🌫';
+    if (code <= 69) return '🌧';
+    if (code <= 79) return '🌨';
+    if (code <= 84) return '🌦';
+    return '⛈';
+  }
+
+  // ── TODAY BUTTON ──
+  function jumpToToday() {
+    const today = new Date();
+    const todayStr = today.toISOString().split('T')[0];
+    const cards = document.querySelectorAll('.day-card');
+    // Find matching card by looking at month/day badge
+    const months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+    const todayMonth = months[today.getMonth()];
+    const todayDay = today.getDate();
+
+    let matched = null;
+    cards.forEach(card => {
+      const monthEl = card.querySelector('.month');
+      const numEl = card.querySelector('.num');
+      if (!monthEl || !numEl) return;
+      const cardMonth = monthEl.textContent.trim();
+      const cardNum = numEl.textContent.trim();
+      // Handle ranges like "5–6"
+      const nums = cardNum.split('–').map(n => parseInt(n.trim()));
+      const monthMatch = cardMonth === todayMonth || (cardMonth === 'May' && todayMonth === 'May') || (cardMonth === 'Jun' && todayMonth === 'Jun');
+      const dayMatch = nums.some(n => n === todayDay) || (nums.length === 2 && todayDay >= nums[0] && todayDay <= nums[1]);
+      if (monthMatch && dayMatch) matched = card;
+    });
+
+    if (matched) {
+      matched.classList.add('open');
+      setTimeout(() => matched.scrollIntoView({ behavior: 'smooth', block: 'start' }), 50);
+    } else {
+      // Outside trip — just scroll to top
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+      const btn = document.getElementById('today-btn');
+      const orig = btn.textContent;
+      btn.textContent = '📅 Not yet!';
+      setTimeout(() => btn.textContent = orig, 2000);
+    }
+  }
+
+  // ── PHRASE TABS ──
+  function switchPhraseTab(id, el) {
+    document.querySelectorAll('.phrase-tab').forEach(t => t.classList.remove('active'));
+    document.querySelectorAll('.phrase-section').forEach(s => s.classList.remove('active'));
+    el.classList.add('active');
+    document.getElementById('tab-' + id).classList.add('active');
+  }
+
+  // ── OFFLINE DETECTION ──
+  function updateOnlineStatus() {
+    const banner = document.getElementById('offline-banner');
+    if (!navigator.onLine) {
+      banner.classList.add('show');
+    } else {
+      banner.classList.remove('show');
+    }
+  }
+  window.addEventListener('online', updateOnlineStatus);
+  window.addEventListener('offline', updateOnlineStatus);
+
+  // ── SERVICE WORKER (offline caching) ──
+  if ('serviceWorker' in navigator) {
+    const swCode = `
+      const CACHE = 'europe-2026-v1';
+      self.addEventListener('install', e => {
+        e.waitUntil(caches.open(CACHE).then(c => c.addAll(['/'])));
+        self.skipWaiting();
+      });
+      self.addEventListener('activate', e => {
+        e.waitUntil(caches.keys().then(keys => Promise.all(keys.filter(k => k !== CACHE).map(k => caches.delete(k)))));
+        self.clients.claim();
+      });
+      self.addEventListener('fetch', e => {
+        e.respondWith(caches.match(e.request).then(cached => cached || fetch(e.request).then(res => {
+          const clone = res.clone();
+          caches.open(CACHE).then(c => c.put(e.request, clone));
+          return res;
+        }).catch(() => cached)));
+      });
+    `;
+    const blob = new Blob([swCode], { type: 'application/javascript' });
+    const swUrl = URL.createObjectURL(blob);
+    navigator.serviceWorker.register(swUrl).catch(() => {});
+  }
+
+  // ── INIT ──
   window.addEventListener('load', () => {
+    // Dismiss splash
     setTimeout(() => {
       const splash = document.getElementById('splash');
-      splash.classList.add('hidden');
-      setTimeout(() => splash.remove(), 700);
+      if (splash) {
+        splash.classList.add('hidden');
+        setTimeout(() => splash.remove(), 700);
+      }
     }, 1500);
+
+    // Open first card
+    const first = document.querySelector('.day-card');
+    if (first) first.classList.add('open');
+
+    // Start clocks
+    updateClocks();
+    setInterval(updateClocks, 30000);
+
+    // Countdown — tick every second for the big clock
+    updateCountdown();
+    setInterval(updateCountdown, 1000);
+
+    // Online check
+    updateOnlineStatus();
+
+    // Load weather for current/upcoming city
+    const now = new Date();
+    let defaultCity = 'Lisbon';
+    if (now >= new Date('2026-06-05') && now < new Date('2026-06-08')) defaultCity = 'Porto';
+    if (now >= new Date('2026-06-08')) defaultCity = 'Rome';
+    loadWeather(defaultCity, '', null);
   });
 </script>
+
 </body>
 </html>
